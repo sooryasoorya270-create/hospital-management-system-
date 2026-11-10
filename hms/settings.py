@@ -28,10 +28,11 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get(
-    'ALLOWED_HOSTS',
-    'localhost,127.0.0.1'
-).split(',')
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'hospital-management-system-h8iy.onrender.com',
+]
 
 # Application definition
 
@@ -150,9 +151,7 @@ LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
 
 CSRF_TRUSTED_ORIGINS = [
-    f"https://{host}"
-    for host in os.environ.get(
-        'CSRF_TRUSTED_ORIGINS', ''
-    ).split(',')
-    if host
+    'https://hospital-management-system-h8iy.onrender.com',
 ]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
