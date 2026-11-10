@@ -1,0 +1,557 @@
+
+{% extends 'base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+
+<style>
+    .about-page {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #334155;
+        background: #ffffff;
+        overflow: hidden;
+    }
+
+    .about-page * {
+        box-sizing: border-box;
+    }
+
+    .about-page h1,
+    .about-page h2,
+    .about-page h3,
+    .about-page p {
+        margin-top: 0;
+    }
+
+    /* Hero Section */
+    .about-hero {
+        position: relative;
+        min-height: 390px;
+        display: flex;
+        align-items: center;
+        padding: 70px 8%;
+        color: #ffffff;
+        background:
+            linear-gradient(90deg,
+                rgba(7, 49, 91, 0.98) 0%,
+                rgba(7, 73, 119, 0.92) 42%,
+                rgba(7, 73, 119, 0.15) 100%),
+            url('https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=1800&q=85')
+            center 45% / cover no-repeat;
+    }
+
+    .hero-content {
+        max-width: 650px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .section-label {
+        display: inline-block;
+        color: #0b91dc;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+
+    .about-hero .section-label {
+        color: #9be4ff;
+    }
+
+    .about-hero h1 {
+        font-size: clamp(36px, 4.5vw, 54px);
+        font-weight: 750;
+        line-height: 1.15;
+        letter-spacing: -1px;
+        margin-bottom: 20px;
+    }
+
+    .about-hero h1 span {
+        color: #76d5ff;
+    }
+
+    .about-hero p {
+        max-width: 560px;
+        color: #e3f1fb;
+        font-size: 17px;
+        line-height: 1.9;
+        margin-bottom: 0;
+    }
+
+    /* Main About Section */
+    .about-content {
+        max-width: 1250px;
+        margin: auto;
+        padding: 85px 35px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 65px;
+        align-items: center;
+    }
+
+    .about-text h2 {
+        color: #10365f;
+        font-size: clamp(29px, 3vw, 38px);
+        line-height: 1.25;
+        margin-bottom: 22px;
+        letter-spacing: -0.7px;
+    }
+
+    .about-text p {
+        font-size: 15.5px;
+        color: #64748b;
+        line-height: 1.9;
+        margin-bottom: 16px;
+    }
+
+    .about-image-wrap {
+        position: relative;
+        padding: 0 0 20px 20px;
+    }
+
+    .about-image {
+        width: 100%;
+        height: 370px;
+        display: block;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(16, 54, 95, 0.13);
+    }
+
+    .image-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 78%;
+        background: #ffffff;
+        padding: 22px 25px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(16, 54, 95, 0.13);
+        border-left: 4px solid #0787cf;
+    }
+
+    .image-caption small {
+        display: block;
+        color: #0787cf;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+    }
+
+    .image-caption h3 {
+        color: #10365f;
+        font-size: 18px;
+        line-height: 1.5;
+        margin-bottom: 0;
+    }
+
+    /* Mission and Vision */
+    .mission-section {
+        padding: 75px 8%;
+        text-align: center;
+        background: linear-gradient(135deg, #edf8ff, #f8fbff);
+    }
+
+    .section-heading {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 40px;
+    }
+
+    .section-heading h2 {
+        color: #10365f;
+        font-size: clamp(28px, 3vw, 36px);
+        font-weight: 750;
+        letter-spacing: -0.5px;
+        margin-bottom: 14px;
+    }
+
+    .section-heading p {
+        color: #64748b;
+        line-height: 1.8;
+        font-size: 15px;
+        margin-bottom: 0;
+    }
+
+    .mission-container {
+        max-width: 1100px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px;
+        text-align: left;
+    }
+
+    .mission-card {
+        padding: 35px;
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid #dcecf8;
+        border-radius: 14px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .mission-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 14px 30px rgba(16, 54, 95, 0.09);
+    }
+
+    .mission-card h3 {
+        color: #10365f;
+        font-size: 23px;
+        margin-bottom: 17px;
+    }
+
+    .mission-card h3::after {
+        content: "";
+        display: block;
+        width: 42px;
+        height: 3px;
+        background: #0787cf;
+        margin-top: 14px;
+    }
+
+    .mission-card p {
+        color: #64748b;
+        font-size: 15px;
+        line-height: 1.9;
+        margin-bottom: 0;
+    }
+
+    /* Why Choose Us */
+    .why-us {
+        padding: 80px 8%;
+        background: #ffffff;
+    }
+
+    .why-container {
+        max-width: 1150px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+    }
+
+    .why-card {
+        padding: 30px 25px;
+        background: #ffffff;
+        border: 1px solid #e1edf6;
+        border-radius: 13px;
+        box-shadow: 0 6px 20px rgba(16, 54, 95, 0.045);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .why-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 28px rgba(16, 54, 95, 0.10);
+    }
+
+    .why-card h3 {
+        color: #10365f;
+        font-size: 19px;
+        margin-bottom: 15px;
+    }
+
+    .why-card h3::after {
+        content: "";
+        display: block;
+        width: 35px;
+        height: 3px;
+        background: #0787cf;
+        margin-top: 12px;
+    }
+
+    .why-card p {
+        color: #64748b;
+        font-size: 14px;
+        line-height: 1.85;
+        margin-bottom: 0;
+    }
+
+    /* Contact CTA */
+    .about-cta {
+        max-width: 1200px;
+        margin: 0 auto 75px;
+        padding: 38px 40px;
+        border-radius: 15px;
+        background: linear-gradient(115deg, #084a82, #087fbd);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .about-cta small {
+        display: block;
+        color: #bdeaff;
+        font-size: 11px;
+        letter-spacing: 2px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .about-cta h2 {
+        font-size: 28px;
+        margin-bottom: 0;
+    }
+
+    .about-cta p {
+        max-width: 390px;
+        color: #e1f2ff;
+        font-size: 14px;
+        line-height: 1.8;
+        margin-bottom: 0;
+    }
+
+    .about-cta a {
+        flex-shrink: 0;
+        display: inline-block;
+        text-decoration: none;
+        background: #ffffff;
+        color: #084a82;
+        padding: 14px 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 700;
+        transition: 0.3s;
+    }
+
+    .about-cta a:hover {
+        background: #dff4ff;
+        transform: translateY(-2px);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .about-content {
+            gap: 35px;
+            padding: 60px 6%;
+        }
+
+        .about-image {
+            height: 320px;
+        }
+
+        .why-container {
+            grid-template-columns: 1fr;
+        }
+
+        .about-cta {
+            margin: 0 20px 50px;
+            padding: 30px;
+            flex-wrap: wrap;
+        }
+    }
+
+    @media (max-width: 650px) {
+        .about-hero {
+            min-height: 350px;
+            padding: 55px 7%;
+            background-position: center;
+        }
+
+        .about-hero h1 {
+            font-size: 34px;
+        }
+
+        .about-hero p {
+            font-size: 15px;
+        }
+
+        .about-content {
+            grid-template-columns: 1fr;
+            padding: 50px 22px;
+        }
+
+        .about-image-wrap {
+            margin-top: 10px;
+        }
+
+        .about-image {
+            height: 280px;
+        }
+
+        .mission-section,
+        .why-us {
+            padding: 55px 22px;
+        }
+
+        .mission-container {
+            grid-template-columns: 1fr;
+        }
+
+        .mission-card {
+            padding: 28px 23px;
+        }
+
+        .about-cta {
+            margin: 0 15px 40px;
+            padding: 28px 23px;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .about-cta h2 {
+            font-size: 25px;
+        }
+    }
+</style>
+
+<div class="about-page">
+
+    <!-- Hero -->
+    <section class="about-hero">
+        <div class="hero-content">
+            <span class="section-label">About Us</span>
+
+            <h1>
+                Welcome to<br>
+                <span>Medicare Hospital</span>
+            </h1>
+
+            <p>
+                Caring for you, committed to your health.
+                Discover our dedication to quality healthcare,
+                compassion, and patient well-being.
+            </p>
+        </div>
+    </section>
+
+    <!-- About Hospital -->
+    <section class="about-content">
+
+        <div class="about-text">
+            <span class="section-label">Who We Are</span>
+
+            <h2>Your Health Is Our Priority</h2>
+
+            <p>
+                Welcome to Medicare Hospital, where patient care
+                and well-being come first. We aim to provide a
+                comfortable and supportive healthcare environment
+                for individuals and families.
+            </p>
+
+            <p>
+                Our hospital management system helps organize
+                information about doctors, departments, and
+                hospital services, making information easier
+                to access and manage.
+            </p>
+        </div>
+
+        <div class="about-image-wrap">
+            <img
+                class="about-image"
+                src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=85"
+                alt="Medical care and hospital environment"
+                loading="lazy"
+            >
+
+            <div class="image-caption">
+                <small>QUALITY CARE</small>
+                <h3>Better Health for a Brighter Future</h3>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Mission and Vision -->
+    <section class="mission-section">
+
+        <div class="section-heading">
+            <span class="section-label">Our Mission & Vision</span>
+            <h2>Guided by Purpose</h2>
+            <p>
+                Our commitment is to create a supportive,
+                organized, and patient-focused healthcare
+                experience for everyone.
+            </p>
+        </div>
+
+        <div class="mission-container">
+
+            <div class="mission-card">
+                <h3>Our Mission</h3>
+                <p>
+                    To support quality healthcare through
+                    compassionate service, efficient hospital
+                    management, and a focus on patient needs.
+                </p>
+            </div>
+
+            <div class="mission-card">
+                <h3>Our Vision</h3>
+                <p>
+                    To build a trusted healthcare environment
+                    where patients feel supported and hospital
+                    services are organized efficiently.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us">
+
+        <div class="section-heading">
+            <span class="section-label">Why Choose Us</span>
+            <h2>Because You Deserve the Best</h2>
+            <p>
+                A well-organized hospital experience focused
+                on care, information, and patient well-being.
+            </p>
+        </div>
+
+        <div class="why-container">
+
+            <div class="why-card">
+                <h3>Dedicated Care</h3>
+                <p>
+                    A patient-focused approach to healthcare
+                    and medical support.
+                </p>
+            </div>
+
+            <div class="why-card">
+                <h3>Medical Professionals</h3>
+                <p>
+                    Access information about doctors,
+                    their specializations, and departments.
+                </p>
+            </div>
+
+            <div class="why-card">
+                <h3>Patient Well-being</h3>
+                <p>
+                    A commitment to patient comfort, support,
+                    and organized hospital services.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Call to Action -->
+    <section class="about-cta">
+        <div>
+            <small>YOUR HEALTH MATTERS</small>
+            <h2>We're Here for You</h2>
+        </div>
+
+        <p>
+            At Medicare Hospital, we believe in a healthier
+            tomorrow for you and your family.
+        </p>
+
+        <a href="{% url 'contact' %}">Contact Us &rarr;</a>
+    </section>
+
+</div>
+
+{% endblock %}

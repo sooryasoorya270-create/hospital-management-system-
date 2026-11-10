@@ -1,0 +1,196 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Booking{% endblock %}
+
+{% block content %}
+
+<style>
+    .booking-section {
+        min-height: 80vh;
+        padding: 60px 20px;
+        background: linear-gradient(135deg, #eef7ff, #f8fbff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .booking-container {
+        width: 100%;
+        max-width: 650px;
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 10px 40px rgba(20, 72, 120, 0.12);
+        border: 1px solid #e4eef8;
+    }
+
+    .booking-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .booking-icon {
+        width: 70px;
+        height: 70px;
+        background: #e5f3ff;
+        color: #0879c9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 18px;
+        font-size: 34px;
+    }
+
+    .booking-header h2 {
+        color: #12395b;
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .booking-header p {
+        color: #718096;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .booking-form p {
+        margin-bottom: 20px;
+    }
+
+    .booking-form label {
+        display: block;
+        color: #243b53;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
+        width: 100%;
+        padding: 13px 15px;
+        border: 1px solid #d5e1ed;
+        border-radius: 9px;
+        background: #fbfdff;
+        color: #243b53;
+        font-size: 15px;
+        outline: none;
+        transition: 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .booking-form input:focus,
+    .booking-form select:focus,
+    .booking-form textarea:focus {
+        border-color: #0784d1;
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(7, 132, 209, 0.12);
+    }
+
+    .booking-form textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .booking-form .helptext {
+        display: block;
+        color: #8293a5;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .booking-form ul.errorlist {
+        color: #dc3545;
+        font-size: 13px;
+        padding-left: 20px;
+    }
+
+    .booking-btn {
+        width: 100%;
+        padding: 15px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #087fca, #0759a5);
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .booking-btn:hover {
+        background: linear-gradient(135deg, #0669aa, #064782);
+        transform: translateY(-2px);
+        box-shadow: 0 7px 18px rgba(7, 89, 165, 0.25);
+    }
+
+    .booking-note {
+        text-align: center;
+        color: #718096;
+        font-size: 13px;
+        margin-top: 22px;
+        line-height: 1.6;
+    }
+
+    .booking-note span {
+        color: #0784b8;
+        font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+        .booking-section {
+            padding: 30px 15px;
+        }
+
+        .booking-container {
+            padding: 25px 20px;
+        }
+
+        .booking-header h2 {
+            font-size: 25px;
+        }
+    }
+</style>
+
+<section class="booking-section">
+    <div class="booking-container">
+
+        <div class="booking-header">
+            <div class="booking-icon">✚</div>
+            <h2>Book an Appointment</h2>
+            <p>
+                Your health matters to us. Schedule an appointment
+                with our medical team using the form below.
+            </p>
+        </div>
+
+        <form method="POST" class="booking-form">
+            {% csrf_token %}
+
+            {% if form %}
+                {{ form.as_p }}
+
+                <button type="submit" class="booking-btn">
+                    Confirm Booking →
+                </button>
+            {% else %}
+                <p style="text-align:center; color:#dc3545;">
+                    Form variable missing. Check your view context!
+                </p>
+            {% endif %}
+        </form>
+
+        <div class="booking-note">
+            <span>✚ Your health, our priority.</span><br>
+            Please ensure your appointment details are correct.
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

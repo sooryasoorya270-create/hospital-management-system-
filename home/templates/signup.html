@@ -1,0 +1,277 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Create Account | Medicare Hospital{% endblock %}
+
+{% block content %}
+
+<style>
+    .signup-section {
+        min-height: 80vh;
+        padding: 50px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #eaf8fa, #f7fbff);
+        font-family: "Segoe UI", Arial, sans-serif;
+        box-sizing: border-box;
+    }
+
+    .signup-card {
+        width: 100%;
+        max-width: 500px;
+        padding: 38px 40px;
+        background: #ffffff;
+        border: 1px solid #e1edf1;
+        border-radius: 20px;
+        box-shadow: 0 18px 55px rgba(19, 68, 86, 0.12);
+        box-sizing: border-box;
+    }
+
+    /* Hospital branding */
+    .signup-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 25px;
+        color: #087f8c;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 0.6px;
+    }
+
+    .signup-brand-icon {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 13px;
+        background: #e0f7f7;
+        color: #087f8c;
+        font-size: 28px;
+    }
+
+    .signup-card h1 {
+        margin: 0 0 10px;
+        text-align: center;
+        color: #15354b;
+        font-size: 28px;
+        font-weight: 750;
+    }
+
+    .signup-description {
+        margin: 0 0 28px;
+        color: #718394;
+        text-align: center;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    /* Form spacing */
+    .signup-card form p {
+        margin: 0 0 20px;
+    }
+
+    .signup-card label {
+        display: block;
+        margin-bottom: 8px;
+        color: #243f52;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    /* Input fields */
+    .signup-card input,
+    .signup-card select,
+    .signup-card textarea {
+        display: block;
+        width: 100%;
+        min-height: 46px;
+        padding: 12px 14px;
+        border: 1px solid #d6e3eb;
+        border-radius: 10px;
+        background: #fbfdff;
+        color: #243b4b;
+        font-family: inherit;
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .signup-card input:focus,
+    .signup-card select:focus,
+    .signup-card textarea:focus {
+        border-color: #0d9488;
+        background: #ffffff;
+        box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.10);
+    }
+
+    .signup-card input::placeholder {
+        color: #a1afba;
+    }
+
+    /* Password requirement box */
+    .signup-card form ul:not(.errorlist) {
+        list-style: none;
+        margin: 10px 0 20px;
+        padding: 14px 16px;
+        background: #f0fdfa;
+        border: 1px solid #ccfbf1;
+        border-radius: 10px;
+    }
+
+    .signup-card form ul:not(.errorlist) li {
+        position: relative;
+        margin: 7px 0;
+        padding-left: 25px;
+        color: #475569;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .signup-card form ul:not(.errorlist) li::before {
+        content: "✓";
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: #0d9488;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    /* Django field help text */
+    .signup-card .helptext {
+        display: block;
+        margin-top: 8px;
+        color: #718394;
+        font-size: 12px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+
+    /* Validation errors */
+    .signup-card ul.errorlist {
+        margin: 7px 0;
+        padding: 10px 12px;
+        list-style: none;
+        background: #fff1f2;
+        border: 1px solid #fecdd3;
+        border-radius: 8px;
+        color: #be123c;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    /* Create account button */
+    .signup-submit {
+        width: 100%;
+        min-height: 49px;
+        margin-top: 8px;
+        padding: 13px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(110deg, #0d9488, #087f8c);
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.25s ease;
+    }
+
+    .signup-submit:hover {
+        background: linear-gradient(110deg, #06746e, #066873);
+        box-shadow: 0 8px 18px rgba(8, 127, 140, 0.22);
+        transform: translateY(-1px);
+    }
+
+    /* Security message */
+    .signup-security {
+        margin: 18px 0 0;
+        padding: 12px;
+        border-radius: 9px;
+        background: #f8fafc;
+        color: #64748b;
+        text-align: center;
+        font-size: 11px;
+        line-height: 1.7;
+    }
+
+    /* Login link */
+    .signup-footer {
+        margin-top: 24px;
+        padding-top: 20px;
+        border-top: 1px solid #edf1f4;
+        color: #718394;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    .signup-footer a {
+        color: #087f8c;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .signup-footer a:hover {
+        text-decoration: underline;
+    }
+
+    /* Mobile responsive design */
+    @media (max-width: 520px) {
+        .signup-section {
+            padding: 30px 14px;
+        }
+
+        .signup-card {
+            padding: 28px 22px;
+            border-radius: 15px;
+        }
+
+        .signup-card h1 {
+            font-size: 25px;
+        }
+    }
+</style>
+
+<section class="signup-section">
+    <div class="signup-card">
+
+        <div class="signup-brand">
+            <div class="signup-brand-icon">✚</div>
+            <span>MEDICARE HOSPITAL</span>
+        </div>
+
+        <h1>Create Your Account</h1>
+
+        <p class="signup-description">
+            Register with Medicare Hospital to manage your
+            appointments and access healthcare services.
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="signup-submit">
+                Create Account &rarr;
+            </button>
+        </form>
+
+        <div class="signup-security">
+            &#128274; Your account security matters.
+            Choose a strong password to help protect your account.
+        </div>
+
+        <div class="signup-footer">
+            Already have an account?
+            <a href="{% url 'login' %}">Sign in here</a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

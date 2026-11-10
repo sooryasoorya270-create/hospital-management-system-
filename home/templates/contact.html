@@ -1,0 +1,202 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+
+<style>
+    .contact-section {
+        min-height: 80vh;
+        padding: 60px 20px;
+        background: linear-gradient(135deg, #eef7ff, #f8fbff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contact-container {
+        width: 100%;
+        max-width: 700px;
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 18px;
+        border: 1px solid #e3edf7;
+        box-shadow: 0 10px 40px rgba(20, 72, 120, 0.12);
+        box-sizing: border-box;
+    }
+
+    .contact-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .contact-icon {
+        width: 70px;
+        height: 70px;
+        background: #e5f3ff;
+        color: #0879c9;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 18px;
+        font-size: 32px;
+    }
+
+    .contact-header h2 {
+        color: #12395b;
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .contact-header p {
+        color: #718096;
+        font-size: 15px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    .contact-form p {
+        margin-bottom: 20px;
+    }
+
+    .contact-form label {
+        display: block;
+        color: #243b53;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+        display: block;
+        width: 100%;
+        padding: 13px 15px;
+        border: 1px solid #d5e1ed;
+        border-radius: 9px;
+        background: #fbfdff;
+        color: #243b53;
+        font-size: 15px;
+        outline: none;
+        box-sizing: border-box;
+        transition: 0.3s ease;
+    }
+
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus {
+        border-color: #0784d1;
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(7, 132, 209, 0.12);
+    }
+
+    .contact-form textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    .contact-form .helptext {
+        display: block;
+        color: #8293a5;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .contact-form .errorlist {
+        color: #dc3545;
+        font-size: 13px;
+        padding-left: 20px;
+    }
+
+    .contact-btn {
+        width: 100%;
+        padding: 15px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #087fca, #0759a5);
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .contact-btn:hover {
+        background: linear-gradient(135deg, #0669aa, #064782);
+        transform: translateY(-2px);
+        box-shadow: 0 7px 18px rgba(7, 89, 165, 0.25);
+    }
+
+    .contact-footer {
+        text-align: center;
+        margin-top: 25px;
+        color: #718096;
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .contact-footer span {
+        color: #0784b8;
+        font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+        .contact-section {
+            padding: 30px 15px;
+        }
+
+        .contact-container {
+            padding: 25px 20px;
+        }
+
+        .contact-header h2 {
+            font-size: 25px;
+        }
+    }
+</style>
+
+<section class="contact-section">
+    <div class="contact-container">
+
+        <div class="contact-header">
+            <div class="contact-icon">✉</div>
+
+            <h2>Contact Us</h2>
+
+            <p>
+                Have a question or need assistance?
+                Send us a message. Our team is here to help you.
+            </p>
+        </div>
+
+        <form method="POST" class="contact-form">
+            {% csrf_token %}
+
+            {% if form %}
+                {{ form.as_p }}
+
+                <button type="submit" class="contact-btn">
+                    Send Message →
+                </button>
+            {% else %}
+                <p style="text-align:center; color:#dc3545;">
+                    Form variable missing. Check your view context!
+                </p>
+            {% endif %}
+        </form>
+
+        <div class="contact-footer">
+            <span>✚ Medicare Hospital</span><br>
+            Caring for you, every step of the way.
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+

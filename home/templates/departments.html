@@ -1,0 +1,128 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Departments{% endblock %}
+
+{% block content %}
+
+<style>
+    .departments-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .departments-container h1 {
+        color: #0d3557;
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+
+    .department-intro {
+        color: #666;
+        font-size: 16px;
+        margin-bottom: 40px;
+        line-height: 1.6;
+    }
+
+    .department-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 25px;
+    }
+
+    .department-card {
+        background: #ffffff;
+        padding: 30px 25px;
+        border-radius: 15px;
+        border-top: 5px solid #1684c7;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease,
+                    box-shadow 0.3s ease;
+    }
+
+    .department-card:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 10px 25px rgba(13, 53, 87, 0.15);
+    }
+
+    .department-icon {
+        width: 65px;
+        height: 65px;
+        margin: 0 auto 20px;
+        background: #e8f4ff;
+        color: #0d5790;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+    }
+
+    .department-card h2 {
+        color: #0d3557;
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
+    .department-card p {
+        color: #666;
+        font-size: 15px;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+    @media (max-width: 600px) {
+        .departments-container {
+            margin: 20px auto;
+            padding: 15px;
+        }
+
+        .departments-container h1 {
+            font-size: 28px;
+        }
+
+        .department-list {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="departments-container">
+
+    <h1>Our Departments</h1>
+
+    <p class="department-intro">
+        Explore our specialized medical departments,
+        committed to providing quality healthcare.
+    </p>
+
+    <div class="department-list">
+
+        {% for d in department %}
+
+        <div class="department-card">
+
+            <div class="department-icon">
+                🏥
+            </div>
+
+            <h2>{{ d.department_name }}</h2>
+
+            <p>{{ d.dbt_dsc }}</p>
+
+        </div>
+
+        {% empty %}
+
+        <p>No departments available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
+

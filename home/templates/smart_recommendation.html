@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Doctor Recommendation</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f0f5fa;
+            color: #263445;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #0878b9;
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            color: #657789;
+            font-size: 16px;
+        }
+
+        /* Search Section */
+        .search-box {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .search-box label {
+            display: block;
+            font-size: 17px;
+            font-weight: bold;
+            color: #263e55;
+            margin-bottom: 12px;
+        }
+
+        .search-box textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccd8e3;
+            border-radius: 9px;
+            font-size: 15px;
+            resize: vertical;
+            outline: none;
+            min-height: 120px;
+            transition: 0.3s;
+        }
+
+        .search-box textarea:focus {
+            border-color: #0784c7;
+            box-shadow: 0 0 5px rgba(7,132,199,0.2);
+        }
+
+        /* Button */
+        .search-box button {
+            background: #087fbd;
+            color: white;
+            border: none;
+            padding: 13px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 18px;
+            transition: 0.3s;
+        }
+
+        .search-box button:hover {
+            background: #055d91;
+            transform: translateY(-2px);
+        }
+
+        /* Results Section */
+        .results {
+            margin-top: 45px;
+        }
+
+        .results h2 {
+            color: #0878b9;
+            font-size: 25px;
+            margin-bottom: 22px;
+            text-align: center;
+        }
+
+        /* Doctor Cards */
+        .doctor-card {
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 22px;
+            border-radius: 13px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border-left: 5px solid #087fbd;
+            transition: 0.3s;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.1);
+        }
+
+        .doctor-card img {
+            width: 125px;
+            height: 125px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .doctor-details h3 {
+            color: #183c5a;
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .doctor-details p {
+            color: #607487;
+            margin: 8px 0;
+            font-size: 15px;
+        }
+
+        .doctor-details strong {
+            color: #304b63;
+        }
+
+        /* No Results */
+        .no-results {
+            background: white;
+            text-align: center;
+            padding: 25px;
+            border-radius: 10px;
+            color: #777;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 35px;
+            background: #e1f2fc;
+            border-left: 4px solid #0784c7;
+            padding: 17px;
+            border-radius: 8px;
+            color: #31566d;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .main-container {
+                margin: 20px auto;
+                padding: 12px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .search-box {
+                padding: 22px;
+            }
+
+            .doctor-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .doctor-card img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        
+.appointment-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 24px;
+    background: #087fbd;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.appointment-btn:hover {
+    background: #055d91;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(8, 127, 189, 0.2);
+}
+
+    </style>
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Smart Doctor Recommendation</h1>
+        <p>Find the right medical specialist based on your symptoms.</p>
+    </div>
+
+    <!-- Symptom Search -->
+    <div class="search-box">
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="symptoms">
+                Describe Your Symptoms
+            </label>
+
+            <textarea
+                id="symptoms"
+                name="symptoms"
+                rows="4"
+                placeholder="Example: I have a skin rash and itching"
+                required>{{ symptoms }}</textarea>
+
+            <button type="submit">
+                Find Doctors
+            </button>
+        </form>
+
+    </div>
+
+    <!-- Recommended Doctors -->
+    {% if searched %}
+    <div class="results">
+
+        <h2>Recommended Doctors</h2>
+
+        {% if doctors %}
+
+            {% for doctor in doctors %}
+
+            <div class="doctor-card">
+
+                {% if doctor.doctor_image %}
+                    <img
+                        src="{{ doctor.doctor_image.url }}"
+                        alt="{{ doctor.doctor_name }}">
+                {% endif %}
+
+<div class="doctor-details">
+
+    <h3>{{ doctor.doctor_name }}</h3>
+
+    <p>
+        <strong>Specialization:</strong>
+        {{ doctor.specialization }}
+    </p>
+
+    <p>
+        <strong>Department:</strong>
+        {{ doctor.department_name.department_name }}
+    </p>
+
+    <a href="{% url 'booking' %}?doctor_id={{ doctor.id }}"
+       class="appointment-btn">
+
+        Book Appointment →
+
+    </a>
+
+</div>
+
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="no-results">
+                <p>No matching doctors found.</p>
+                <p>Try describing your symptoms differently.</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+    {% endif %}
+
+    <!-- Medical Disclaimer -->
+    <div class="disclaimer">
+        <strong>Medical Disclaimer:</strong>
+        This tool suggests medical specialties based on your symptoms.
+        It does not diagnose medical conditions. Seek urgent medical
+        care for emergency symptoms.
+    </div>
+
+</div>
+
+</body>
+</html>
