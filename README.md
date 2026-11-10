@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Hospital Management System
 
 A Django web application for browsing doctors and departments, making appointment bookings, sending contact messages, and finding doctors by symptom keywords.
@@ -98,3 +99,6 @@ hms/
 ## Configuration and deployment
 
 The default settings are for local development and use SQLite. Before deploying, configure a private `SECRET_KEY`, set `DEBUG = False`, configure `ALLOWED_HOSTS`, and review the database, static-file, media-file, and HTTPS settings. Do not use Django's development server as a production web server.
+=======
+# hospital-management-system-
+>>>>>>> e4eed8ed6efce3070a1aec39579b768e2f7395e2
