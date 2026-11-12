@@ -18,3 +18,14 @@ db.sqlite3
 
 # Logs
 *.log
+
+data.json
+db_backup.sqlite3
+
+# Cloudinary transfer and database backup
+render_backup_before_cloudinary.json
+transfer_images_to_cloudinary.py
+
+# Media and collected static files
+media/
+staticfiles/
