@@ -1,70 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{% block title %} {% endblock %}</title> 
-     <style>
+    <title>{% block title %} {% endblock %}</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
         }
 
         body {
-            background-color: #f5f8fc;
-            color: #333;
+            background-color: #f8fafc;
+            color: #1e293b;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* ================= NAVBAR ================= */
 
         .navbar {
-            background-color: #0b2d4d;
-            padding: 18px 60px;
-
+            background-color: #0f172a;
+            padding: 16px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.25);
+            border-bottom: 3px solid #0d9488;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             color: white;
             text-decoration: none;
             font-size: 25px;
-            font-weight: bold;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo i {
+            color: #5eead4;
+            font-size: 28px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            transition: transform 0.25s ease;
+        }
+
+        .logo:hover i {
+            transform: scale(1.1) rotate(-5deg);
         }
 
         .logo span {
-            color: #35c2ff;
+            color: #5eead4;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 35px;
+            gap: 32px;
+            align-items: center;
         }
 
         .nav-links a {
-            color: white;
+            color: #e2e8f0;
             text-decoration: none;
             font-size: 15px;
-            transition: 0.3s;
+            font-weight: 500;
+            position: relative;
+            padding: 6px 0;
+            transition: color 0.25s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #5eead4;
+            border-radius: 2px;
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: #35c2ff;
+            color: #5eead4;
         }
 
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .logout-button {
+            background: transparent;
+            border: 1.5px solid #5eead4;
+            color: #5eead4;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logout-button:hover {
+            background: #0d9488;
+            color: white;
+            border-color: #0d9488;
+            box-shadow: 0 0 16px rgba(13, 148, 136, 0.5);
+            transform: translateY(-1px);
+        }
 
         /* ================= MAIN CONTENT ================= */
 
         main {
             flex: 1;
-            padding: 50px 60px;
+            padding: 0;
         }
 
         .container {
@@ -72,44 +138,85 @@
             margin: auto;
         }
 
-
         /* ================= FOOTER ================= */
 
         footer {
-            background-color: #0b2d4d;
+            background-color: #0f172a;
             color: white;
             margin-top: auto;
+            border-top: 4px solid #0d9488;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '\f21e';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: -30px;
+            bottom: -60px;
+            font-size: 280px;
+            color: rgba(94, 234, 212, 0.03);
+            pointer-events: none;
         }
 
         .footer-container {
             max-width: 1200px;
             margin: auto;
-
-            padding: 40px 60px;
-
+            padding: 60px 60px 40px;
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
             gap: 50px;
+            position: relative;
+            z-index: 1;
         }
 
         .footer-section h2 {
-            font-size: 22px;
-            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .footer-section h2 i {
+            color: #5eead4;
+            font-size: 26px;
         }
 
         .footer-section h2 span {
-            color: #35c2ff;
+            color: #5eead4;
         }
 
         .footer-section h3 {
-            color: #35c2ff;
-            margin-bottom: 15px;
+            color: #5eead4;
+            margin-bottom: 24px;
+            font-size: 17px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 12px;
+            letter-spacing: 0.3px;
         }
 
-        .footer-section p {
-            color: #d5e0ea;
-            line-height: 1.7;
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #0d9488, #5eead4);
+            border-radius: 4px;
+        }
+
+        .footer-section > p {
+            color: #94a3b8;
+            line-height: 1.9;
             font-size: 14px;
+            max-width: 340px;
         }
 
         .footer-section ul {
@@ -117,59 +224,116 @@
         }
 
         .footer-section ul li {
-            margin-bottom: 10px;
+            margin-bottom: 14px;
         }
 
         .footer-section ul li a {
-            color: #d5e0ea;
+            color: #cbd5e1;
             text-decoration: none;
             font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.25s ease;
+        }
+
+        .footer-section ul li a i {
+            color: #5eead4;
+            font-size: 11px;
+            width: 16px;
+            transition: transform 0.25s ease;
         }
 
         .footer-section ul li a:hover {
-            color: #35c2ff;
+            color: #5eead4;
+        }
+
+        .footer-section ul li a:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Contact info lines with icons */
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-contact-item i {
+            color: #5eead4;
+            font-size: 15px;
+            margin-top: 3px;
+            width: 18px;
+            flex-shrink: 0;
         }
 
         .footer-bottom {
             text-align: center;
-            border-top: 1px solid #31506b;
-            padding: 18px;
-            color: #b8c8d8;
+            border-top: 1px solid rgba(94, 234, 212, 0.12);
+            padding: 24px;
+            color: #94a3b8;
             font-size: 13px;
+            letter-spacing: 0.3px;
+            position: relative;
+            z-index: 1;
         }
 
+        .footer-bottom i {
+            color: #5eead4;
+            margin: 0 4px;
+        }
 
         /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 16px 30px;
+            }
+
+            .footer-container {
+                padding: 50px 30px 30px;
+            }
+        }
 
         @media (max-width: 768px) {
 
             .navbar {
-                padding: 20px;
+                padding: 18px 22px;
                 flex-direction: column;
-                gap: 20px;
+                gap: 18px;
             }
 
             .nav-links {
-                gap: 15px;
+                gap: 14px 20px;
                 flex-wrap: wrap;
                 justify-content: center;
             }
 
             main {
-                padding: 30px 20px;
+                padding: 0;
             }
 
             .footer-container {
                 grid-template-columns: 1fr;
-                padding: 30px 25px;
+                padding: 40px 25px 30px;
+                gap: 40px;
+            }
+
+            .footer-section > p {
+                max-width: 100%;
             }
         }
     </style>
 </head>
 <body>
-     <nav class="navbar">
+    <nav class="navbar">
 
         <a href="/" class="logo">
+            <i class="fas fa-hospital"></i>
             Medi<span>Care</span>
         </a>
 
@@ -194,48 +358,53 @@
             <li>
                 <a href="/contact/">Contact</a>
             </li>
-            
+
             <li>
-                <a href="/booking/">booking</a>
+                <a href="/booking/">Booking</a>
             </li>
+
             {% if user.is_authenticated %}
-                    <form action="{% url 'logout' %}" method ="POST" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="logout-button">Logout</button>
-                    </form>
-                {% endif %}
+            <li>
+                <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-button">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </form>
+            </li>
+            {% endif %}
+
         </ul>
 
     </nav>
-    
+
     {% block content %}
-    
-     
+
     {% endblock %}
-     <footer>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
 
         <div class="footer-container">
 
-
             <!-- Hospital Information -->
-
             <div class="footer-section">
 
                 <h2>
+                    <i class="fas fa-hospital"></i>
                     Medi<span>Care</span>
                 </h2>
 
                 <p>
                     Providing quality healthcare services with
                     experienced doctors, modern facilities and
-                    patient-focused care.
+                    patient-focused care. Your health and comfort
+                    are always our top priority.
                 </p>
 
             </div>
 
-
             <!-- Quick Links -->
-
             <div class="footer-section">
 
                 <h3>Quick Links</h3>
@@ -243,63 +412,81 @@
                 <ul>
 
                     <li>
-                        <a href="/">Home</a>
+                        <a href="/">
+                            <i class="fas fa-chevron-right"></i> Home
+                        </a>
                     </li>
 
                     <li>
-                        <a href="/about/">About</a>
+                        <a href="/about/">
+                            <i class="fas fa-chevron-right"></i> About
+                        </a>
                     </li>
 
                     <li>
-                        <a href="/departments/">Departments</a>
+                        <a href="/departments/">
+                            <i class="fas fa-chevron-right"></i> Departments
+                        </a>
                     </li>
 
                     <li>
-                        <a href="/doctors/">Doctors</a>
+                        <a href="/doctors/">
+                            <i class="fas fa-chevron-right"></i> Doctors
+                        </a>
                     </li>
 
                     <li>
-                        <a href="/contact/">Contact</a>
+                        <a href="/contact/">
+                            <i class="fas fa-chevron-right"></i> Contact
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/booking/">
+                            <i class="fas fa-chevron-right"></i> Booking
+                        </a>
                     </li>
 
                 </ul>
 
             </div>
 
-
             <!-- Contact Information -->
-
             <div class="footer-section">
 
                 <h3>Contact Us</h3>
 
-                <p>
-                     Kottayam, Kerala
-                    <br><br>
+                <div class="footer-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Kottayam, Kerala</span>
+                </div>
 
-                     +91 98765 43210
-                    <br><br>
+                <div class="footer-contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+91 98765 43210</span>
+                </div>
 
-                    info@medicare.com
-                </p>
+                <div class="footer-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@medicare.com</span>
+                </div>
+
+                <div class="footer-contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>24/7 Emergency Care</span>
+                </div>
 
             </div>
 
-
         </div>
 
-
         <!-- Copyright -->
-
         <div class="footer-bottom">
-
-            © 2026 MediCare Hospital. All Rights Reserved.
-
+            © 2026 MediCare Hospital. All Rights Reserved. | Made with
+            <i class="fas fa-heart"></i> for better health.
         </div>
 
     </footer>
 
 </body>
 </html>
-
-

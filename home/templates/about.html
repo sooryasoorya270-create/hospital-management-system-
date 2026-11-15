@@ -1,433 +1,940 @@
-
 {% extends 'base.html' %}
 
-{% block title %}About Us{% endblock %}
+{% block title %}About Us | Medicare Hospital{% endblock %}
 
 {% block content %}
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
 <style>
-    .about-page {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        color: #334155;
-        background: #ffffff;
-        overflow: hidden;
+.about-page {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1e293b;
+    background: #f8fafc;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.about-page * {
+    box-sizing: border-box;
+}
+
+.about-page h1,
+.about-page h2,
+.about-page h3,
+.about-page p {
+    margin-top: 0;
+}
+
+/* ========== COMMON ========== */
+
+.about-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #0d9488;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding: 8px 18px;
+    background: rgba(13, 148, 136, 0.06);
+    border: 1px solid rgba(13, 148, 136, 0.15);
+    border-radius: 50px;
+}
+
+.about-title {
+    color: #0f172a;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.about-description {
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+.about-divider {
+    width: 60px;
+    height: 4px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #0d9488, #5eead4);
+    margin: 0 0 28px;
+}
+
+/* ========== HERO ========== */
+
+.about-hero {
+    min-height: 560px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 90px 7%;
+    color: white;
+    background:
+        linear-gradient(
+            105deg,
+            rgba(15, 40, 65, 0.92) 0%,
+            rgba(15, 40, 65, 0.80) 42%,
+            rgba(15, 40, 65, 0.45) 72%,
+            rgba(15, 40, 65, 0.10) 100%
+        ),
+        url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=2000&q=90')
+        center / cover no-repeat;
+    background-color: #1a2e3f;
+    overflow: hidden;
+}
+
+.about-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, #f8fafc, transparent);
+    pointer-events: none;
+}
+
+.about-hero-content {
+    max-width: 720px;
+    position: relative;
+    z-index: 2;
+}
+
+.about-hero .about-label {
+    color: #5eead4;
+    background: rgba(94, 234, 212, 0.08);
+    border-color: rgba(94, 234, 212, 0.2);
+}
+
+.about-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5.5vw, 68px);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 26px;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+}
+
+.about-hero h1 span {
+    color: #5eead4;
+}
+
+.about-hero > .about-hero-content > p {
+    max-width: 560px;
+    color: #e2e8f0;
+    font-size: 17px;
+    line-height: 1.9;
+    margin-bottom: 34px;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+.about-hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #0d9488, #0f766e);
+    color: white;
+    text-decoration: none;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 24px rgba(13, 148, 136, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-hero-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.6s;
+}
+
+.about-hero-btn:hover::before {
+    left: 100%;
+}
+
+.about-hero-btn:hover {
+    background: linear-gradient(135deg, #0f766e, #115e59);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(13, 148, 136, 0.5);
+}
+
+.about-hero-btn i {
+    transition: transform 0.3s;
+}
+
+.about-hero-btn:hover i {
+    transform: translateX(5px);
+}
+
+/* ========== HIGHLIGHT STRIP ========== */
+
+.about-highlights {
+    max-width: 1100px;
+    margin: -50px auto 0;
+    padding: 0 25px;
+    position: relative;
+    z-index: 3;
+}
+
+.about-highlight-container {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 32px 24px;
+    border: 1px solid #e2e8f0;
+}
+
+.about-highlight {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    border-right: 1px solid #e2e8f0;
+}
+
+.about-highlight:last-child {
+    border-right: none;
+}
+
+.about-highlight-icon {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+    color: #0d9488;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    border: 1px solid #ccfbf1;
+}
+
+.about-highlight h3 {
+    color: #0f172a;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.about-highlight p {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+/* ========== ABOUT CONTENT ========== */
+
+.about-content {
+    max-width: 1200px;
+    margin: auto;
+    padding: 110px 35px 90px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.about-text h2 {
+    color: #0f172a;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 3.5vw, 44px);
+    line-height: 1.25;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+}
+
+.about-text p {
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.95;
+    margin-bottom: 18px;
+}
+
+.about-image-wrap {
+    position: relative;
+    padding: 0 0 28px 25px;
+}
+
+.about-image-wrap::before {
+    content: "";
+    position: absolute;
+    top: -18px;
+    right: -15px;
+    width: 130px;
+    height: 130px;
+    background-image: radial-gradient(#0d9488 2px, transparent 2px);
+    background-size: 15px 15px;
+    opacity: .25;
+    z-index: 0;
+}
+
+.about-image {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.15);
+    transition: transform 0.4s ease;
+}
+
+.about-image:hover {
+    transform: scale(1.02);
+}
+
+.about-image-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 82%;
+    background: white;
+    padding: 24px 28px;
+    border-radius: 14px;
+    border-left: 4px solid #0d9488;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    z-index: 2;
+}
+
+.about-image-caption small {
+    display: block;
+    color: #0d9488;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.about-image-caption h3 {
+    color: #0f172a;
+    font-size: 19px;
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+/* ========== MISSION AND VISION ========== */
+
+.mission-section {
+    padding: 100px 7%;
+    background: linear-gradient(180deg, #f0fdfa 0%, #f8fafc 100%);
+}
+
+.about-section-heading {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 60px;
+}
+
+.about-section-heading .about-divider {
+    margin: 0 auto 28px;
+}
+
+.about-section-heading p {
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.85;
+}
+
+.mission-container {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.mission-card {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 42px 38px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mission-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0d9488, #5eead4);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.mission-card:hover::before {
+    opacity: 1;
+}
+
+.mission-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(13, 148, 136, 0.12);
+    border-color: #99f6e4;
+}
+
+.mission-card::after {
+    content: "";
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: #f0fdfa;
+    right: -45px;
+    bottom: -55px;
+}
+
+.mission-icon {
+    width: 62px;
+    height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+    color: #0d9488;
+    font-size: 26px;
+    border-radius: 14px;
+    margin-bottom: 26px;
+    border: 1px solid #ccfbf1;
+    transition: all 0.35s ease;
+}
+
+.mission-card:hover .mission-icon {
+    background: linear-gradient(135deg, #0d9488, #0f766e);
+    color: white;
+    transform: scale(1.08) rotate(-3deg);
+    border-color: #0d9488;
+    box-shadow: 0 8px 24px rgba(13, 148, 136, 0.3);
+}
+
+.mission-card h3 {
+    color: #0f172a;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+}
+
+.mission-card p {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.9;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* ========== VALUES SECTION ========== */
+
+.values-section {
+    padding: 100px 7%;
+    background: white;
+}
+
+.values-container {
+    max-width: 1150px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.value-card {
+    padding: 36px 30px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    position: relative;
+    overflow: hidden;
+}
+
+.value-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0d9488, #5eead4);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.value-card:hover::before {
+    opacity: 1;
+}
+
+.value-card:hover {
+    transform: translateY(-8px);
+    border-color: #99f6e4;
+    box-shadow: 0 20px 50px rgba(13, 148, 136, 0.12);
+}
+
+.value-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+    color: #0d9488;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 24px;
+    transition: all 0.35s ease;
+    border: 1px solid #ccfbf1;
+}
+
+.value-card:hover .value-icon {
+    background: linear-gradient(135deg, #0d9488, #0f766e);
+    color: white;
+    transform: scale(1.08) rotate(-3deg);
+    border-color: #0d9488;
+    box-shadow: 0 8px 24px rgba(13, 148, 136, 0.3);
+}
+
+.value-card h3 {
+    color: #0f172a;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    letter-spacing: -0.2px;
+}
+
+.value-card p {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.85;
+    margin-bottom: 0;
+}
+
+/* ========== PATIENT COMMITMENT BANNER ========== */
+
+.about-commitment {
+    padding: 100px 7%;
+    background: linear-gradient(180deg, #f8fafc 0%, #f0fdfa 100%);
+}
+
+.commitment-container {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.commitment-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.15);
+    transition: transform 0.4s ease;
+}
+
+.commitment-image:hover {
+    transform: scale(1.02);
+}
+
+.commitment-text h2 {
+    color: #0f172a;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 3.5vw, 40px);
+    line-height: 1.25;
+    margin-bottom: 22px;
+    letter-spacing: -0.5px;
+}
+
+.commitment-text p {
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 26px;
+}
+
+.commitment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.commitment-list li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+    color: #1e293b;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.commitment-list i {
+    color: #0d9488;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* ========== CONTACT CTA ========== */
+
+.about-cta {
+    max-width: 1200px;
+    margin: 0 auto 90px;
+    padding: 60px 50px;
+    border-radius: 24px;
+    background:
+        linear-gradient(135deg, rgba(15, 40, 65, 0.92), rgba(13, 148, 136, 0.85)),
+        url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1400&q=85')
+        center / cover;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    box-shadow: 0 30px 80px rgba(15, 40, 65, 0.20);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-cta::before {
+    content: '\f21e';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: -10px;
+    bottom: -40px;
+    font-size: 220px;
+    color: rgba(255, 255, 255, 0.04);
+    pointer-events: none;
+}
+
+.about-cta > div {
+    position: relative;
+    z-index: 1;
+}
+
+.about-cta small {
+    display: block;
+    color: #5eead4;
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+}
+
+.about-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.5vw, 38px);
+    margin-bottom: 0;
+}
+
+.about-cta > p {
+    max-width: 380px;
+    color: #cbd5e1;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.about-cta a {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    background: white;
+    color: #0f766e;
+    padding: 16px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    transition: all 0.35s ease;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.about-cta a:hover {
+    background: #f0fdfa;
+    transform: translateY(-3px);
+    color: #115e59;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.about-cta a i {
+    transition: transform 0.3s;
+}
+
+.about-cta a:hover i {
+    transform: translateX(5px);
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 1024px) {
+    .about-content {
+        gap: 50px;
     }
 
-    .about-page * {
-        box-sizing: border-box;
+    .values-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .about-content {
+        gap: 35px;
+        padding: 90px 6% 70px;
     }
 
-    .about-page h1,
-    .about-page h2,
-    .about-page h3,
-    .about-page p {
-        margin-top: 0;
+    .about-commitment {
+        padding: 80px 6%;
     }
 
-    /* Hero Section */
+    .commitment-container {
+        gap: 40px;
+    }
+
+    .about-cta {
+        margin: 0 20px 70px;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .mission-container,
+    .commitment-container {
+        grid-template-columns: 1fr;
+    }
+
+    .commitment-image {
+        height: 320px;
+    }
+}
+
+@media (max-width: 650px) {
     .about-hero {
-        position: relative;
-        min-height: 390px;
-        display: flex;
-        align-items: center;
-        padding: 70px 8%;
-        color: #ffffff;
-        background:
-            linear-gradient(90deg,
-                rgba(7, 49, 91, 0.98) 0%,
-                rgba(7, 73, 119, 0.92) 42%,
-                rgba(7, 73, 119, 0.15) 100%),
-            url('https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=1800&q=85')
-            center 45% / cover no-repeat;
-    }
-
-    .hero-content {
-        max-width: 650px;
-        position: relative;
-        z-index: 1;
-    }
-
-    .section-label {
-        display: inline-block;
-        color: #0b91dc;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        margin-bottom: 15px;
-    }
-
-    .about-hero .section-label {
-        color: #9be4ff;
+        min-height: 480px;
+        padding: 70px 6%;
+        background-position: center;
     }
 
     .about-hero h1 {
-        font-size: clamp(36px, 4.5vw, 54px);
-        font-weight: 750;
-        line-height: 1.15;
-        letter-spacing: -1px;
-        margin-bottom: 20px;
+        font-size: 38px;
     }
 
-    .about-hero h1 span {
-        color: #76d5ff;
+    .about-hero > .about-hero-content > p {
+        font-size: 15px;
     }
 
-    .about-hero p {
-        max-width: 560px;
-        color: #e3f1fb;
-        font-size: 17px;
-        line-height: 1.9;
-        margin-bottom: 0;
+    .about-highlights {
+        margin-top: -30px;
+        padding: 0 18px;
     }
 
-    /* Main About Section */
+    .about-highlight-container {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+
+    .about-highlight {
+        justify-content: flex-start;
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 16px;
+    }
+
+    .about-highlight:last-child {
+        border-bottom: none;
+    }
+
     .about-content {
-        max-width: 1250px;
-        margin: auto;
-        padding: 85px 35px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 65px;
-        align-items: center;
-    }
-
-    .about-text h2 {
-        color: #10365f;
-        font-size: clamp(29px, 3vw, 38px);
-        line-height: 1.25;
-        margin-bottom: 22px;
-        letter-spacing: -0.7px;
-    }
-
-    .about-text p {
-        font-size: 15.5px;
-        color: #64748b;
-        line-height: 1.9;
-        margin-bottom: 16px;
-    }
-
-    .about-image-wrap {
-        position: relative;
-        padding: 0 0 20px 20px;
+        grid-template-columns: 1fr;
+        padding: 70px 22px;
+        gap: 35px;
     }
 
     .about-image {
-        width: 100%;
-        height: 370px;
-        display: block;
-        object-fit: cover;
-        border-radius: 15px;
-        box-shadow: 0 15px 35px rgba(16, 54, 95, 0.13);
+        height: 300px;
     }
 
-    .image-caption {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 78%;
-        background: #ffffff;
-        padding: 22px 25px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(16, 54, 95, 0.13);
-        border-left: 4px solid #0787cf;
+    .about-image-caption {
+        width: 90%;
+        padding: 18px;
     }
 
-    .image-caption small {
-        display: block;
-        color: #0787cf;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        margin-bottom: 8px;
+    .about-image-caption h3 {
+        font-size: 17px;
     }
 
-    .image-caption h3 {
-        color: #10365f;
-        font-size: 18px;
-        line-height: 1.5;
-        margin-bottom: 0;
+    .mission-section,
+    .values-section {
+        padding: 70px 22px;
     }
 
-    /* Mission and Vision */
-    .mission-section {
-        padding: 75px 8%;
-        text-align: center;
-        background: linear-gradient(135deg, #edf8ff, #f8fbff);
-    }
-
-    .section-heading {
-        text-align: center;
-        max-width: 700px;
-        margin: 0 auto 40px;
-    }
-
-    .section-heading h2 {
-        color: #10365f;
-        font-size: clamp(28px, 3vw, 36px);
-        font-weight: 750;
-        letter-spacing: -0.5px;
-        margin-bottom: 14px;
-    }
-
-    .section-heading p {
-        color: #64748b;
-        line-height: 1.8;
-        font-size: 15px;
-        margin-bottom: 0;
-    }
-
-    .mission-container {
-        max-width: 1100px;
-        margin: auto;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 25px;
-        text-align: left;
+    .mission-container,
+    .values-container {
+        grid-template-columns: 1fr;
     }
 
     .mission-card {
-        padding: 35px;
-        background: rgba(255, 255, 255, 0.95);
-        border: 1px solid #dcecf8;
-        border-radius: 14px;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .mission-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 14px 30px rgba(16, 54, 95, 0.09);
+        padding: 32px 26px;
     }
 
     .mission-card h3 {
-        color: #10365f;
-        font-size: 23px;
-        margin-bottom: 17px;
+        font-size: 21px;
     }
 
-    .mission-card h3::after {
-        content: "";
-        display: block;
-        width: 42px;
-        height: 3px;
-        background: #0787cf;
-        margin-top: 14px;
+    .value-card {
+        padding: 30px 26px;
     }
 
-    .mission-card p {
-        color: #64748b;
-        font-size: 15px;
-        line-height: 1.9;
-        margin-bottom: 0;
+    .about-commitment {
+        padding: 65px 22px;
     }
 
-    /* Why Choose Us */
-    .why-us {
-        padding: 80px 8%;
-        background: #ffffff;
+    .commitment-image {
+        height: 280px;
     }
 
-    .why-container {
-        max-width: 1150px;
-        margin: auto;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 22px;
-    }
-
-    .why-card {
-        padding: 30px 25px;
-        background: #ffffff;
-        border: 1px solid #e1edf6;
-        border-radius: 13px;
-        box-shadow: 0 6px 20px rgba(16, 54, 95, 0.045);
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .why-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 28px rgba(16, 54, 95, 0.10);
-    }
-
-    .why-card h3 {
-        color: #10365f;
-        font-size: 19px;
-        margin-bottom: 15px;
-    }
-
-    .why-card h3::after {
-        content: "";
-        display: block;
-        width: 35px;
-        height: 3px;
-        background: #0787cf;
-        margin-top: 12px;
-    }
-
-    .why-card p {
-        color: #64748b;
-        font-size: 14px;
-        line-height: 1.85;
-        margin-bottom: 0;
-    }
-
-    /* Contact CTA */
-    .about-cta {
-        max-width: 1200px;
-        margin: 0 auto 75px;
-        padding: 38px 40px;
-        border-radius: 15px;
-        background: linear-gradient(115deg, #084a82, #087fbd);
-        color: white;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 25px;
-    }
-
-    .about-cta small {
-        display: block;
-        color: #bdeaff;
-        font-size: 11px;
-        letter-spacing: 2px;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-
-    .about-cta h2 {
+    .commitment-text h2 {
         font-size: 28px;
-        margin-bottom: 0;
     }
 
-    .about-cta p {
-        max-width: 390px;
-        color: #e1f2ff;
-        font-size: 14px;
-        line-height: 1.8;
-        margin-bottom: 0;
+    .about-cta {
+        margin: 0 15px 60px;
+        padding: 40px 28px;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .about-cta a {
-        flex-shrink: 0;
-        display: inline-block;
-        text-decoration: none;
-        background: #ffffff;
-        color: #084a82;
-        padding: 14px 24px;
-        border-radius: 30px;
-        font-size: 14px;
-        font-weight: 700;
-        transition: 0.3s;
+    .about-cta::before {
+        font-size: 160px;
+        bottom: -30px;
     }
 
-    .about-cta a:hover {
-        background: #dff4ff;
-        transform: translateY(-2px);
+    .about-label {
+        font-size: 10px;
+        letter-spacing: 2.5px;
+        padding: 6px 14px;
     }
+}
 
-    /* Responsive */
-    @media (max-width: 900px) {
-        .about-content {
-            gap: 35px;
-            padding: 60px 6%;
-        }
-
-        .about-image {
-            height: 320px;
-        }
-
-        .why-container {
-            grid-template-columns: 1fr;
-        }
-
-        .about-cta {
-            margin: 0 20px 50px;
-            padding: 30px;
-            flex-wrap: wrap;
-        }
+@media (max-width: 400px) {
+    .about-hero h1 {
+        font-size: 32px;
     }
-
-    @media (max-width: 650px) {
-        .about-hero {
-            min-height: 350px;
-            padding: 55px 7%;
-            background-position: center;
-        }
-
-        .about-hero h1 {
-            font-size: 34px;
-        }
-
-        .about-hero p {
-            font-size: 15px;
-        }
-
-        .about-content {
-            grid-template-columns: 1fr;
-            padding: 50px 22px;
-        }
-
-        .about-image-wrap {
-            margin-top: 10px;
-        }
-
-        .about-image {
-            height: 280px;
-        }
-
-        .mission-section,
-        .why-us {
-            padding: 55px 22px;
-        }
-
-        .mission-container {
-            grid-template-columns: 1fr;
-        }
-
-        .mission-card {
-            padding: 28px 23px;
-        }
-
-        .about-cta {
-            margin: 0 15px 40px;
-            padding: 28px 23px;
-            align-items: flex-start;
-            flex-direction: column;
-        }
-
-        .about-cta h2 {
-            font-size: 25px;
-        }
-    }
+}
 </style>
 
 <div class="about-page">
 
-    <!-- Hero -->
+    <!-- ========== HERO SECTION ========== -->
     <section class="about-hero">
-        <div class="hero-content">
-            <span class="section-label">About Us</span>
+        <div class="about-hero-content">
+            <span class="about-label">
+                <i class="fas fa-hospital"></i>
+                About Medicare
+            </span>
 
             <h1>
-                Welcome to<br>
-                <span>Medicare Hospital</span>
+                Caring for You,<br>
+                <span>Committed to Your Health.</span>
             </h1>
 
             <p>
-                Caring for you, committed to your health.
-                Discover our dedication to quality healthcare,
-                compassion, and patient well-being.
+                Discover Medicare Hospital, where patient well-being,
+                compassionate care, and organized healthcare services
+                come together.
             </p>
+
+            <a href="{% url 'doctors' %}" class="about-hero-btn">
+                Meet Our Doctors
+                <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
     </section>
 
-    <!-- About Hospital -->
+    <!-- ========== HIGHLIGHTS ========== -->
+    <section class="about-highlights">
+        <div class="about-highlight-container">
+            <div class="about-highlight">
+                <div class="about-highlight-icon">
+                    <i class="fas fa-heart-pulse"></i>
+                </div>
+                <div>
+                    <h3>Patient First</h3>
+                    <p>Care with compassion</p>
+                </div>
+            </div>
+
+            <div class="about-highlight">
+                <div class="about-highlight-icon">
+                    <i class="fas fa-user-doctor"></i>
+                </div>
+                <div>
+                    <h3>Medical Expertise</h3>
+                    <p>Doctor information and support</p>
+                </div>
+            </div>
+
+            <div class="about-highlight">
+                <div class="about-highlight-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div>
+                    <h3>Easy Appointments</h3>
+                    <p>Convenient booking access</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ABOUT HOSPITAL ========== -->
     <section class="about-content">
-
         <div class="about-text">
-            <span class="section-label">Who We Are</span>
+            <span class="about-label">Who We Are</span>
 
-            <h2>Your Health Is Our Priority</h2>
+            <h2>
+                Your Health Is Our Priority
+            </h2>
+
+            <div class="about-divider"></div>
 
             <p>
                 Welcome to Medicare Hospital, where patient care
@@ -442,114 +949,235 @@
                 hospital services, making information easier
                 to access and manage.
             </p>
+
+            <p>
+                We believe that clear communication and an
+                organized healthcare experience can help patients
+                make informed decisions about their care.
+            </p>
         </div>
 
         <div class="about-image-wrap">
             <img
                 class="about-image"
-                src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=85"
-                alt="Medical care and hospital environment"
+                src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=88"
+                alt="Healthcare professionals"
                 loading="lazy"
             >
 
-            <div class="image-caption">
-                <small>QUALITY CARE</small>
+            <div class="about-image-caption">
+                <small>OUR COMMITMENT</small>
                 <h3>Better Health for a Brighter Future</h3>
             </div>
         </div>
-
     </section>
 
-    <!-- Mission and Vision -->
+    <!-- ========== MISSION AND VISION ========== -->
     <section class="mission-section">
+        <div class="about-section-heading">
+            <span class="about-label">Our Purpose</span>
 
-        <div class="section-heading">
-            <span class="section-label">Our Mission & Vision</span>
-            <h2>Guided by Purpose</h2>
+            <h2 class="about-title">
+                Our Mission & Vision
+            </h2>
+
+            <div class="about-divider"></div>
+
             <p>
-                Our commitment is to create a supportive,
-                organized, and patient-focused healthcare
-                experience for everyone.
+                Our purpose guides everything we do.
+                We work towards a supportive and organized
+                healthcare experience.
             </p>
         </div>
 
         <div class="mission-container">
-
             <div class="mission-card">
+                <div class="mission-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
                 <h3>Our Mission</h3>
                 <p>
                     To support quality healthcare through
                     compassionate service, efficient hospital
-                    management, and a focus on patient needs.
+                    management, and a continuous focus on
+                    patient needs and well-being.
                 </p>
             </div>
 
             <div class="mission-card">
+                <div class="mission-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
                 <h3>Our Vision</h3>
                 <p>
                     To build a trusted healthcare environment
                     where patients feel supported and hospital
-                    services are organized efficiently.
+                    services are organized efficiently through
+                    modern technology.
                 </p>
             </div>
-
         </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section class="why-us">
+    <!-- ========== WHY CHOOSE US / VALUES ========== -->
+    <section class="values-section">
+        <div class="about-section-heading">
+            <span class="about-label">Why Medicare</span>
 
-        <div class="section-heading">
-            <span class="section-label">Why Choose Us</span>
-            <h2>Because You Deserve the Best</h2>
+            <h2 class="about-title">
+                What Makes Us Different
+            </h2>
+
+            <div class="about-divider"></div>
+
             <p>
-                A well-organized hospital experience focused
-                on care, information, and patient well-being.
+                We focus on making hospital information
+                accessible and creating a better organized
+                patient experience.
             </p>
         </div>
 
-        <div class="why-container">
-
-            <div class="why-card">
-                <h3>Dedicated Care</h3>
+        <div class="values-container">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3>Compassionate Care</h3>
                 <p>
-                    A patient-focused approach to healthcare
-                    and medical support.
+                    We believe every patient deserves respect,
+                    understanding, and a supportive healthcare
+                    experience.
                 </p>
             </div>
 
-            <div class="why-card">
-                <h3>Medical Professionals</h3>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h3>Doctor Information</h3>
                 <p>
-                    Access information about doctors,
-                    their specializations, and departments.
+                    Explore doctor profiles, specializations,
+                    and available medical department information
+                    through our platform.
                 </p>
             </div>
 
-            <div class="why-card">
-                <h3>Patient Well-being</h3>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h3>Appointment Access</h3>
                 <p>
-                    A commitment to patient comfort, support,
-                    and organized hospital services.
+                    Access the appointment booking facility
+                    and manage your appointment information
+                    conveniently.
                 </p>
             </div>
 
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-laptop-medical"></i>
+                </div>
+                <h3>Modern Technology</h3>
+                <p>
+                    We use digital tools to organize hospital
+                    information and make essential services
+                    easier to access.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <h3>Smart Recommendation</h3>
+                <p>
+                    Our symptom-based recommendation feature
+                    helps users explore doctors based on
+                    entered symptoms. It is not a diagnosis.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Patient Support</h3>
+                <p>
+                    We aim to provide a clear and organized
+                    platform for accessing hospital-related
+                    information and support.
+                </p>
+            </div>
         </div>
     </section>
 
-    <!-- Contact Call to Action -->
+    <!-- ========== PATIENT COMMITMENT ========== -->
+    <section class="about-commitment">
+        <div class="commitment-container">
+            <div>
+                <img
+                    class="commitment-image"
+                    src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=88"
+                    alt="Healthcare professionals providing patient support"
+                    loading="lazy"
+                >
+            </div>
+
+            <div class="commitment-text">
+                <span class="about-label">Our Commitment</span>
+
+                <h2>
+                    Your Well-being Comes First
+                </h2>
+
+                <p>
+                    We understand that healthcare information
+                    should be easy to access. Our platform
+                    brings together important hospital
+                    information and appointment facilities
+                    in one place.
+                </p>
+
+                <ul class="commitment-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Easy access to doctor information
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Organized department details
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Convenient appointment access
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Patient-focused digital services
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT CTA ========== -->
     <section class="about-cta">
         <div>
-            <small>YOUR HEALTH MATTERS</small>
-            <h2>We're Here for You</h2>
+            <small>We Are Here to Help</small>
+            <h2>Let's Take Care of Your Health</h2>
         </div>
 
         <p>
-            At Medicare Hospital, we believe in a healthier
-            tomorrow for you and your family.
+            Have questions about our hospital, doctors,
+            or services? Our contact page is available
+            to help you find the information you need.
         </p>
 
-        <a href="{% url 'contact' %}">Contact Us &rarr;</a>
+        <a href="{% url 'contact' %}">
+            Contact Us
+            <i class="fas fa-arrow-right"></i>
+        </a>
     </section>
 
 </div>

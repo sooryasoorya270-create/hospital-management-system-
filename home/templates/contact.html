@@ -1,202 +1,578 @@
-
 {% extends 'base.html' %}
 
-{% block title %}Contact Us{% endblock %}
+{% block title %}Contact Us | Medicare Hospital{% endblock %}
 
 {% block content %}
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
 <style>
-    .contact-section {
-        min-height: 80vh;
-        padding: 60px 20px;
-        background: linear-gradient(135deg, #eef7ff, #f8fbff);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+/* ========== MAIN SECTION ========== */
+.contact-page {
+    background: #f8fafc;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1e293b;
+    padding-bottom: 60px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.contact-page * {
+    box-sizing: border-box;
+}
+
+.contact-page h1,
+.contact-page h2,
+.contact-page h3,
+.contact-page h4,
+.contact-page p {
+    margin-top: 0;
+}
+
+/* ========== HERO ========== */
+.contact-hero {
+    min-height: 460px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 7%;
+    position: relative;
+    background:
+        linear-gradient(
+            105deg,
+            rgba(15, 40, 65, 0.92) 0%,
+            rgba(15, 40, 65, 0.80) 42%,
+            rgba(15, 40, 65, 0.45) 72%,
+            rgba(15, 40, 65, 0.10) 100%
+        ),
+        url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=2000&q=90')
+        center / cover no-repeat;
+    background-color: #1a2e3f;
+    overflow: hidden;
+}
+
+.contact-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, #f8fafc, transparent);
+    pointer-events: none;
+}
+
+.contact-hero-content {
+    max-width: 720px;
+    color: white;
+    position: relative;
+    z-index: 2;
+}
+
+.contact-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5.5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 22px;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+}
+
+.contact-hero p {
+    color: #e2e8f0;
+    font-size: 17px;
+    line-height: 1.9;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ========== CONTACT LAYOUT ========== */
+.contact-main {
+    max-width: 1150px;
+    margin: 100px auto 80px;
+    padding: 0 30px;
+}
+
+.contact-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.contact-heading span {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #0d9488;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding: 8px 18px;
+    background: rgba(13, 148, 136, 0.06);
+    border: 1px solid rgba(13, 148, 136, 0.15);
+    border-radius: 50px;
+}
+
+.contact-heading h2 {
+    color: #0f172a;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 18px;
+}
+
+.contact-heading p {
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ========== COLUMNS ========== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.3fr;
+    gap: 32px;
+    align-items: stretch;
+}
+
+/* ========== LEFT INFORMATION ========== */
+.contact-info {
+    background: linear-gradient(145deg, #0f172a, #0f766e);
+    color: white;
+    padding: 42px 36px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(15, 40, 65, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-info::before {
+    content: '\f21e';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: -20px;
+    bottom: -40px;
+    font-size: 180px;
+    color: rgba(255, 255, 255, 0.04);
+    pointer-events: none;
+}
+
+.contact-info > * {
+    position: relative;
+    z-index: 1;
+}
+
+.contact-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    margin-bottom: 18px;
+}
+
+.contact-info > p {
+    color: #cbd5e1;
+    line-height: 1.9;
+    font-size: 15px;
+    margin-bottom: 34px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-icon {
+    min-width: 48px;
+    height: 48px;
+    background: rgba(94, 234, 212, 0.12);
+    color: #5eead4;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border: 1px solid rgba(94, 234, 212, 0.2);
+    transition: all 0.3s ease;
+}
+
+.info-item:hover .info-icon {
+    background: #0d9488;
+    color: white;
+    border-color: #0d9488;
+    transform: scale(1.05);
+}
+
+.info-item h4 {
+    font-size: 15px;
+    margin: 2px 0 8px;
+    color: white;
+    font-weight: 700;
+}
+
+.info-item p {
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* ========== FORM CARD ========== */
+.contact-container {
+    background: white;
+    padding: 42px;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    position: relative;
+}
+
+.contact-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0d9488, #5eead4);
+    border-radius: 20px 20px 0 0;
+}
+
+.form-header {
+    margin-bottom: 30px;
+}
+
+.form-header h3 {
+    color: #0f172a;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+}
+
+.form-header p {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* ========== DJANGO FORM ========== */
+.contact-form p {
+    margin-bottom: 22px;
+}
+
+.contact-form label {
+    display: block;
+    color: #1e293b;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 9px;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
+    color: #1e293b;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    border-color: #0d9488;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
+}
+
+.contact-form textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.contact-form .helptext {
+    display: block;
+    color: #94a3b8;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.contact-form .errorlist {
+    color: #dc2626;
+    font-size: 13px;
+    padding-left: 20px;
+    margin-top: 6px;
+}
+
+/* ========== BUTTON ========== */
+.contact-btn {
+    width: 100%;
+    padding: 16px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0d9488, #0f766e);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 24px rgba(13, 148, 136, 0.3);
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.contact-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.6s;
+}
+
+.contact-btn:hover::before {
+    left: 100%;
+}
+
+.contact-btn:hover {
+    background: linear-gradient(135deg, #0f766e, #115e59);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(13, 148, 136, 0.5);
+}
+
+/* ========== FOOTER NOTE ========== */
+.contact-note {
+    text-align: center;
+    margin-top: 50px;
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+.contact-note strong {
+    color: #0d9488;
+    font-weight: 700;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .contact-info {
+        padding: 36px 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .contact-hero {
+        min-height: 400px;
+        padding: 70px 6%;
+        background-position: center;
+    }
+
+    .contact-hero h1 {
+        font-size: 36px;
+    }
+
+    .contact-hero p {
+        font-size: 15px;
+    }
+
+    .contact-main {
+        margin: 70px auto 60px;
+        padding: 0 22px;
+    }
+
+    .contact-heading h2 {
+        font-size: 30px;
+    }
+
+    .contact-heading span {
+        font-size: 10px;
+        letter-spacing: 2.5px;
+        padding: 6px 14px;
     }
 
     .contact-container {
-        width: 100%;
-        max-width: 700px;
-        background: #ffffff;
-        padding: 40px;
-        border-radius: 18px;
-        border: 1px solid #e3edf7;
-        box-shadow: 0 10px 40px rgba(20, 72, 120, 0.12);
-        box-sizing: border-box;
+        padding: 30px 24px;
     }
 
-    .contact-header {
-        text-align: center;
-        margin-bottom: 30px;
+    .contact-info {
+        padding: 32px 26px;
     }
 
-    .contact-icon {
-        width: 70px;
-        height: 70px;
-        background: #e5f3ff;
-        color: #0879c9;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto 18px;
-        font-size: 32px;
+    .contact-info::before {
+        font-size: 130px;
     }
 
-    .contact-header h2 {
-        color: #12395b;
+    .form-header h3 {
+        font-size: 23px;
+    }
+}
+
+@media (max-width: 400px) {
+    .contact-hero h1 {
         font-size: 30px;
-        font-weight: 700;
-        margin-bottom: 10px;
     }
 
-    .contact-header p {
-        color: #718096;
-        font-size: 15px;
-        line-height: 1.7;
-        margin: 0;
+    .contact-info h3 {
+        font-size: 22px;
     }
-
-    .contact-form p {
-        margin-bottom: 20px;
-    }
-
-    .contact-form label {
-        display: block;
-        color: #243b53;
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: 8px;
-    }
-
-    .contact-form input,
-    .contact-form select,
-    .contact-form textarea {
-        display: block;
-        width: 100%;
-        padding: 13px 15px;
-        border: 1px solid #d5e1ed;
-        border-radius: 9px;
-        background: #fbfdff;
-        color: #243b53;
-        font-size: 15px;
-        outline: none;
-        box-sizing: border-box;
-        transition: 0.3s ease;
-    }
-
-    .contact-form input:focus,
-    .contact-form select:focus,
-    .contact-form textarea:focus {
-        border-color: #0784d1;
-        background: #ffffff;
-        box-shadow: 0 0 0 3px rgba(7, 132, 209, 0.12);
-    }
-
-    .contact-form textarea {
-        min-height: 130px;
-        resize: vertical;
-    }
-
-    .contact-form .helptext {
-        display: block;
-        color: #8293a5;
-        font-size: 12px;
-        margin-top: 5px;
-    }
-
-    .contact-form .errorlist {
-        color: #dc3545;
-        font-size: 13px;
-        padding-left: 20px;
-    }
-
-    .contact-btn {
-        width: 100%;
-        padding: 15px;
-        margin-top: 10px;
-        border: none;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #087fca, #0759a5);
-        color: white;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.3s ease;
-    }
-
-    .contact-btn:hover {
-        background: linear-gradient(135deg, #0669aa, #064782);
-        transform: translateY(-2px);
-        box-shadow: 0 7px 18px rgba(7, 89, 165, 0.25);
-    }
-
-    .contact-footer {
-        text-align: center;
-        margin-top: 25px;
-        color: #718096;
-        font-size: 13px;
-        line-height: 1.7;
-    }
-
-    .contact-footer span {
-        color: #0784b8;
-        font-weight: 600;
-    }
-
-    @media (max-width: 600px) {
-        .contact-section {
-            padding: 30px 15px;
-        }
-
-        .contact-container {
-            padding: 25px 20px;
-        }
-
-        .contact-header h2 {
-            font-size: 25px;
-        }
-    }
+}
 </style>
 
-<section class="contact-section">
-    <div class="contact-container">
+<div class="contact-page">
 
-        <div class="contact-header">
-            <div class="contact-icon">✉</div>
+    <!-- ========== HERO SECTION ========== -->
+    <section class="contact-hero">
+        <div class="contact-hero-content">
+            <h1>Contact Medicare Hospital</h1>
+            <p>
+                We are always ready to listen and assist you.
+                Reach out to us for appointments, enquiries,
+                or any healthcare-related assistance.
+            </p>
+        </div>
+    </section>
 
-            <h2>Contact Us</h2>
+    <!-- ========== CONTACT SECTION ========== -->
+    <section class="contact-main">
 
+        <div class="contact-heading">
+            <span>
+                <i class="fas fa-headset"></i>
+                Get In Touch
+            </span>
+            <h2>We Would Love to Hear From You</h2>
             <p>
                 Have a question or need assistance?
-                Send us a message. Our team is here to help you.
+                Send us a message using the form below.
             </p>
         </div>
 
-        <form method="POST" class="contact-form">
-            {% csrf_token %}
+        <div class="contact-grid">
 
-            {% if form %}
-                {{ form.as_p }}
+            <!-- ========== CONTACT INFORMATION ========== -->
+            <div class="contact-info">
+                <h3>Let's Connect</h3>
 
-                <button type="submit" class="contact-btn">
-                    Send Message →
-                </button>
-            {% else %}
-                <p style="text-align:center; color:#dc3545;">
-                    Form variable missing. Check your view context!
+                <p>
+                    Your questions and feedback are important to us.
+                    Our team is here to help you with your enquiries.
                 </p>
-            {% endif %}
-        </form>
 
-        <div class="contact-footer">
-            <span>✚ Medicare Hospital</span><br>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <div>
+                        <h4>Hospital</h4>
+                        <p>Medicare Hospital</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h4>Email Support</h4>
+                        <p>Contact us through the message form.</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h4>Our Commitment</h4>
+                        <p>We are dedicated to helping you with your healthcare enquiries.</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-heart-pulse"></i>
+                    </div>
+                    <div>
+                        <h4>Patient Care</h4>
+                        <p>Your health and well-being always matter to us.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== CONTACT FORM ========== -->
+            <div class="contact-container">
+                <div class="form-header">
+                    <h3>Send Us a Message</h3>
+                    <p>
+                        Fill in the details below and submit your enquiry.
+                    </p>
+                </div>
+
+                <form method="POST" class="contact-form">
+                    {% csrf_token %}
+
+                    {% if form %}
+
+                        {{ form.as_p }}
+
+                        <button type="submit" class="contact-btn">
+                            Send Message <i class="fas fa-paper-plane"></i>
+                        </button>
+
+                    {% else %}
+
+                        <p style="text-align:center; color:#dc2626;">
+                            Form variable missing. Check your view context!
+                        </p>
+
+                    {% endif %}
+                </form>
+            </div>
+
+        </div>
+
+        <div class="contact-note">
+            <strong>Medicare Hospital</strong><br>
             Caring for you, every step of the way.
         </div>
 
-    </div>
-</section>
+    </section>
+
+</div>
 
 {% endblock %}
-

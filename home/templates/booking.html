@@ -1,196 +1,594 @@
-
 {% extends 'base.html' %}
 
-{% block title %}Booking{% endblock %}
+{% block title %}Book an Appointment | Medicare Hospital{% endblock %}
 
 {% block content %}
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
 <style>
-    .booking-section {
-        min-height: 80vh;
-        padding: 60px 20px;
-        background: linear-gradient(135deg, #eef7ff, #f8fbff);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+/* ========== MAIN PAGE ========== */
+.booking-page {
+    background: #f8fafc;
+    color: #1e293b;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding-bottom: 60px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.booking-page * {
+    box-sizing: border-box;
+}
+
+.booking-page h1,
+.booking-page h2,
+.booking-page h3,
+.booking-page h4,
+.booking-page p {
+    margin-top: 0;
+}
+
+/* ========== HERO ========== */
+.booking-hero {
+    min-height: 460px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 7%;
+    position: relative;
+    background:
+        linear-gradient(
+            105deg,
+            rgba(15, 40, 65, 0.92) 0%,
+            rgba(15, 40, 65, 0.80) 42%,
+            rgba(15, 40, 65, 0.45) 72%,
+            rgba(15, 40, 65, 0.10) 100%
+        ),
+        url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=2000&q=90')
+        center / cover no-repeat;
+    background-color: #1a2e3f;
+    overflow: hidden;
+}
+
+.booking-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, #f8fafc, transparent);
+    pointer-events: none;
+}
+
+.booking-hero-content {
+    max-width: 720px;
+    color: white;
+    position: relative;
+    z-index: 2;
+}
+
+.booking-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5.5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 22px;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+}
+
+.booking-hero p {
+    color: #e2e8f0;
+    font-size: 17px;
+    line-height: 1.9;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ========== MAIN CONTAINER ========== */
+.booking-main {
+    max-width: 1150px;
+    margin: 100px auto 80px;
+    padding: 0 30px;
+}
+
+.booking-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.booking-heading span {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #0d9488;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding: 8px 18px;
+    background: rgba(13, 148, 136, 0.06);
+    border: 1px solid rgba(13, 148, 136, 0.15);
+    border-radius: 50px;
+}
+
+.booking-heading h2 {
+    color: #0f172a;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 18px;
+}
+
+.booking-heading p {
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ========== GRID ========== */
+.booking-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.3fr;
+    gap: 32px;
+    align-items: stretch;
+}
+
+/* ========== LEFT INFORMATION ========== */
+.booking-info {
+    background: linear-gradient(145deg, #0f172a, #0f766e);
+    color: white;
+    padding: 42px 36px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(15, 40, 65, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.booking-info::before {
+    content: '\f21e';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: -20px;
+    bottom: -40px;
+    font-size: 180px;
+    color: rgba(255, 255, 255, 0.04);
+    pointer-events: none;
+}
+
+.booking-info > * {
+    position: relative;
+    z-index: 1;
+}
+
+.booking-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    margin-bottom: 18px;
+}
+
+.booking-info > p {
+    color: #cbd5e1;
+    font-size: 15px;
+    line-height: 1.9;
+    margin-bottom: 34px;
+}
+
+.booking-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.booking-feature:last-child {
+    margin-bottom: 0;
+}
+
+.booking-feature-icon {
+    min-width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(94, 234, 212, 0.12);
+    color: #5eead4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    border: 1px solid rgba(94, 234, 212, 0.2);
+    transition: all 0.3s ease;
+}
+
+.booking-feature:hover .booking-feature-icon {
+    background: #0d9488;
+    color: white;
+    border-color: #0d9488;
+    transform: scale(1.05);
+}
+
+.booking-feature h4 {
+    color: white;
+    font-size: 15px;
+    margin: 2px 0 8px;
+    font-weight: 700;
+}
+
+.booking-feature p {
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* ========== FORM CARD ========== */
+.booking-container {
+    background: white;
+    padding: 42px;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    position: relative;
+}
+
+.booking-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0d9488, #5eead4);
+    border-radius: 20px 20px 0 0;
+}
+
+.booking-form-header {
+    margin-bottom: 30px;
+}
+
+.booking-form-header h3 {
+    color: #0f172a;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+}
+
+.booking-form-header p {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* ========== FORM FIELDS ========== */
+.booking-form p {
+    margin-bottom: 22px;
+}
+
+.booking-form label {
+    display: block;
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 9px;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
+    color: #1e293b;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus {
+    border-color: #0d9488;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
+}
+
+.booking-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.booking-form .helptext {
+    display: block;
+    color: #94a3b8;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.booking-form ul.errorlist {
+    color: #dc2626;
+    font-size: 13px;
+    padding-left: 20px;
+    margin-top: 6px;
+}
+
+/* ========== BUTTON ========== */
+.booking-btn {
+    width: 100%;
+    padding: 16px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0d9488, #0f766e);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 24px rgba(13, 148, 136, 0.3);
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.booking-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.6s;
+}
+
+.booking-btn:hover::before {
+    left: 100%;
+}
+
+.booking-btn:hover {
+    background: linear-gradient(135deg, #0f766e, #115e59);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(13, 148, 136, 0.5);
+}
+
+/* ========== BOTTOM NOTE ========== */
+.booking-note {
+    text-align: center;
+    color: #64748b;
+    font-size: 15px;
+    margin-top: 50px;
+    line-height: 1.9;
+}
+
+.booking-note strong {
+    color: #0d9488;
+    font-weight: 700;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+    .booking-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .booking-info {
+        padding: 36px 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .booking-hero {
+        min-height: 400px;
+        padding: 70px 6%;
+        background-position: center;
+    }
+
+    .booking-hero h1 {
+        font-size: 36px;
+    }
+
+    .booking-hero p {
+        font-size: 15px;
+    }
+
+    .booking-main {
+        margin: 70px auto 60px;
+        padding: 0 22px;
+    }
+
+    .booking-heading h2 {
+        font-size: 30px;
+    }
+
+    .booking-heading span {
+        font-size: 10px;
+        letter-spacing: 2.5px;
+        padding: 6px 14px;
     }
 
     .booking-container {
-        width: 100%;
-        max-width: 650px;
-        background: #ffffff;
-        padding: 40px;
-        border-radius: 18px;
-        box-shadow: 0 10px 40px rgba(20, 72, 120, 0.12);
-        border: 1px solid #e4eef8;
+        padding: 30px 24px;
     }
 
-    .booking-header {
-        text-align: center;
-        margin-bottom: 30px;
+    .booking-info {
+        padding: 32px 26px;
     }
 
-    .booking-icon {
-        width: 70px;
-        height: 70px;
-        background: #e5f3ff;
-        color: #0879c9;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 18px;
-        font-size: 34px;
+    .booking-info::before {
+        font-size: 130px;
     }
 
-    .booking-header h2 {
-        color: #12395b;
+    .booking-form-header h3 {
+        font-size: 23px;
+    }
+}
+
+@media (max-width: 400px) {
+    .booking-hero h1 {
         font-size: 30px;
-        font-weight: 700;
-        margin-bottom: 10px;
     }
 
-    .booking-header p {
-        color: #718096;
-        font-size: 15px;
-        line-height: 1.6;
+    .booking-info h3 {
+        font-size: 22px;
     }
-
-    .booking-form p {
-        margin-bottom: 20px;
-    }
-
-    .booking-form label {
-        display: block;
-        color: #243b53;
-        font-weight: 600;
-        font-size: 14px;
-        margin-bottom: 8px;
-    }
-
-    .booking-form input,
-    .booking-form select,
-    .booking-form textarea {
-        width: 100%;
-        padding: 13px 15px;
-        border: 1px solid #d5e1ed;
-        border-radius: 9px;
-        background: #fbfdff;
-        color: #243b53;
-        font-size: 15px;
-        outline: none;
-        transition: 0.3s ease;
-        box-sizing: border-box;
-    }
-
-    .booking-form input:focus,
-    .booking-form select:focus,
-    .booking-form textarea:focus {
-        border-color: #0784d1;
-        background: #ffffff;
-        box-shadow: 0 0 0 3px rgba(7, 132, 209, 0.12);
-    }
-
-    .booking-form textarea {
-        min-height: 100px;
-        resize: vertical;
-    }
-
-    .booking-form .helptext {
-        display: block;
-        color: #8293a5;
-        font-size: 12px;
-        margin-top: 5px;
-    }
-
-    .booking-form ul.errorlist {
-        color: #dc3545;
-        font-size: 13px;
-        padding-left: 20px;
-    }
-
-    .booking-btn {
-        width: 100%;
-        padding: 15px;
-        margin-top: 10px;
-        border: none;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #087fca, #0759a5);
-        color: #ffffff;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.3s ease;
-    }
-
-    .booking-btn:hover {
-        background: linear-gradient(135deg, #0669aa, #064782);
-        transform: translateY(-2px);
-        box-shadow: 0 7px 18px rgba(7, 89, 165, 0.25);
-    }
-
-    .booking-note {
-        text-align: center;
-        color: #718096;
-        font-size: 13px;
-        margin-top: 22px;
-        line-height: 1.6;
-    }
-
-    .booking-note span {
-        color: #0784b8;
-        font-weight: 600;
-    }
-
-    @media (max-width: 600px) {
-        .booking-section {
-            padding: 30px 15px;
-        }
-
-        .booking-container {
-            padding: 25px 20px;
-        }
-
-        .booking-header h2 {
-            font-size: 25px;
-        }
-    }
+}
 </style>
 
-<section class="booking-section">
-    <div class="booking-container">
+<div class="booking-page">
 
-        <div class="booking-header">
-            <div class="booking-icon">✚</div>
-            <h2>Book an Appointment</h2>
+    <!-- ========== HERO SECTION ========== -->
+    <section class="booking-hero">
+        <div class="booking-hero-content">
+            <h1>Book Your Appointment</h1>
             <p>
-                Your health matters to us. Schedule an appointment
-                with our medical team using the form below.
+                Take the first step towards better health.
+                Schedule an appointment with our medical team
+                and receive the care you deserve.
+            </p>
+        </div>
+    </section>
+
+    <!-- ========== BOOKING SECTION ========== -->
+    <section class="booking-main">
+
+        <div class="booking-heading">
+            <span>
+                <i class="fas fa-calendar-check"></i>
+                Appointment Booking
+            </span>
+            <h2>Schedule Your Visit</h2>
+            <p>
+                Complete the appointment form with your details.
+                We look forward to assisting you.
             </p>
         </div>
 
-        <form method="POST" class="booking-form">
-            {% csrf_token %}
+        <div class="booking-grid">
 
-            {% if form %}
-                {{ form.as_p }}
+            <!-- ========== INFORMATION SECTION ========== -->
+            <div class="booking-info">
+                <h3>Your Health Comes First</h3>
 
-                <button type="submit" class="booking-btn">
-                    Confirm Booking →
-                </button>
-            {% else %}
-                <p style="text-align:center; color:#dc3545;">
-                    Form variable missing. Check your view context!
+                <p>
+                    At Medicare Hospital, we are committed to
+                    providing patient-focused healthcare.
+                    Book an appointment to connect with our
+                    medical professionals.
                 </p>
-            {% endif %}
-        </form>
 
-        <div class="booking-note">
-            <span>✚ Your health, our priority.</span><br>
-            Please ensure your appointment details are correct.
+                <div class="booking-feature">
+                    <div class="booking-feature-icon">
+                        <i class="fas fa-user-doctor"></i>
+                    </div>
+                    <div>
+                        <h4>Expert Medical Care</h4>
+                        <p>
+                            Connect with doctors across different
+                            medical specializations.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="booking-feature">
+                    <div class="booking-feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div>
+                        <h4>Easy Appointment</h4>
+                        <p>
+                            Submit your appointment details
+                            through our simple booking form.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="booking-feature">
+                    <div class="booking-feature-icon">
+                        <i class="fas fa-heart-pulse"></i>
+                    </div>
+                    <div>
+                        <h4>Patient-Focused Care</h4>
+                        <p>
+                            Your health and comfort are
+                            important to our team.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="booking-feature">
+                    <div class="booking-feature-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div>
+                        <h4>Appointment Tracking</h4>
+                        <p>
+                            Keep track of your appointment
+                            details through your patient dashboard.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== BOOKING FORM ========== -->
+            <div class="booking-container">
+                <div class="booking-form-header">
+                    <h3>Appointment Details</h3>
+                    <p>
+                        Please enter the required information
+                        to request your appointment.
+                    </p>
+                </div>
+
+                <form method="POST" class="booking-form">
+                    {% csrf_token %}
+
+                    {% if form %}
+
+                        {{ form.as_p }}
+
+                        <button type="submit" class="booking-btn">
+                            Confirm Booking
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+
+                    {% else %}
+
+                        <p style="text-align:center; color:#dc2626;">
+                            Form variable missing. Check your view context!
+                        </p>
+
+                    {% endif %}
+                </form>
+            </div>
+
         </div>
 
-    </div>
-</section>
+        <div class="booking-note">
+            <strong>Medicare Hospital</strong><br>
+            Your health, our priority. Thank you for choosing us.
+        </div>
+
+    </section>
+
+</div>
 
 {% endblock %}

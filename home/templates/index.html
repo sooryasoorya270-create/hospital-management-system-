@@ -1,399 +1,716 @@
-
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Medicare Hospital | Home{% endblock %}
 
 {% block content %}
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
 <style>
-    .home-page {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        color: #334155;
-        background: #ffffff;
-        overflow: hidden;
-    }
+/* ========== GLOBAL RESET ========== */
+.home-page {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1e293b;
+    background: #f8fafc;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
 
-    .home-page * {
-        box-sizing: border-box;
-    }
+.home-page * {
+    box-sizing: border-box;
+}
 
-    .home-page h1,
-    .home-page h2,
-    .home-page h3,
-    .home-page p {
-        margin-top: 0;
-    }
+.home-page h1,
+.home-page h2,
+.home-page h3,
+.home-page h4,
+.home-page p {
+    margin-top: 0;
+}
 
-    /* Hero Section */
+/* ========== HERO SECTION ========== */
+.home-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 7%;
+    position: relative;
+    color: white;
+    background:
+        linear-gradient(
+            105deg,
+            rgba(15, 40, 65, 0.82) 0%,
+            rgba(15, 40, 65, 0.68) 38%,
+            rgba(15, 40, 65, 0.35) 68%,
+            rgba(15, 40, 65, 0.05) 100%
+        ),
+        url('https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=2400&q=92')
+        center center / cover no-repeat;
+    background-color: #1a2e3f;
+    overflow: hidden;
+}
+
+.home-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to top, #f8fafc, transparent);
+    pointer-events: none;
+}
+
+.home-hero-content {
+    max-width: 680px;
+    position: relative;
+    z-index: 2;
+}
+
+.home-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #5eead4;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    padding: 8px 18px;
+    background: rgba(94, 234, 212, 0.08);
+    border: 1px solid rgba(94, 234, 212, 0.2);
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+}
+
+.home-label i {
+    font-size: 14px;
+}
+
+.home-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 6vw, 82px);
+    line-height: 1.05;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+.home-hero h1 span {
+    color: #5eead4;
+    position: relative;
+    display: inline-block;
+}
+
+.home-hero h1 span::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background: rgba(94, 234, 212, 0.15);
+    z-index: -1;
+    border-radius: 4px;
+}
+
+.home-hero > .home-hero-content > p {
+    max-width: 520px;
+    font-size: 17px;
+    line-height: 1.85;
+    color: #e2e8f0;
+    margin-bottom: 42px;
+    font-weight: 400;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ========== HERO BUTTON ========== */
+.home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #0d9488, #0f766e);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 24px rgba(13, 148, 136, 0.35);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.home-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.6s;
+}
+
+.home-btn:hover::before {
+    left: 100%;
+}
+
+.home-btn:hover {
+    background: linear-gradient(135deg, #0f766e, #115e59);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(13, 148, 136, 0.5);
+}
+
+.home-btn i {
+    transition: transform 0.3s;
+}
+
+.home-btn:hover i {
+    transform: translateX(5px);
+}
+
+/* ========== HERO INFO ========== */
+.hero-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    margin-top: 60px;
+}
+
+.hero-info-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    min-width: 160px;
+}
+
+.hero-info-item:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(94, 234, 212, 0.3);
+    transform: translateY(-3px);
+}
+
+.hero-info-item i {
+    color: #5eead4;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.hero-info-item strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.hero-info-item small {
+    display: block;
+    color: #cbd5e1;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+/* ========== WELCOME SECTION ========== */
+.home-welcome {
+    max-width: 1100px;
+    margin: auto;
+    padding: 110px 30px 80px;
+    text-align: center;
+    position: relative;
+}
+
+.home-section-title {
+    color: #0f172a;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.home-welcome > p {
+    max-width: 720px;
+    margin: auto;
+    color: #64748b;
+    font-size: 16px;
+    line-height: 2;
+}
+
+.title-line {
+    width: 60px;
+    height: 4px;
+    margin: 0 auto 30px;
+    background: linear-gradient(90deg, #0d9488, #5eead4);
+    border-radius: 10px;
+}
+
+/* ========== IMAGE GALLERY ========== */
+.home-gallery {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 18px;
+    max-width: 1200px;
+    margin: 0 auto 100px;
+    padding: 0 30px;
+}
+
+.home-gallery img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+    transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: brightness(0.95) saturate(0.9);
+}
+
+.home-gallery img:hover {
+    transform: scale(1.03) translateY(-4px);
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+    filter: brightness(1) saturate(1);
+}
+
+/* ========== SERVICES ========== */
+.home-services {
+    padding: 100px 7%;
+    background: linear-gradient(180deg, #f0fdfa 0%, #f8fafc 100%);
+    position: relative;
+}
+
+.home-section-heading {
+    max-width: 700px;
+    margin: 0 auto 60px;
+    text-align: center;
+}
+
+.home-section-heading p {
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.85;
+}
+
+.home-service-container {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.home-service-card {
+    padding: 42px 38px;
+    min-height: 290px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.home-service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0d9488, #5eead4);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.home-service-card:hover::before {
+    opacity: 1;
+}
+
+.home-service-card:hover {
+    transform: translateY(-8px);
+    border-color: #99f6e4;
+    box-shadow: 0 20px 50px rgba(13, 148, 136, 0.12);
+}
+
+.service-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+    color: #0d9488;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 26px;
+    transition: all 0.35s ease;
+    border: 1px solid #ccfbf1;
+}
+
+.home-service-card:hover .service-icon {
+    background: linear-gradient(135deg, #0d9488, #0f766e);
+    color: white;
+    transform: scale(1.08) rotate(-3deg);
+    border-color: #0d9488;
+    box-shadow: 0 8px 24px rgba(13, 148, 136, 0.3);
+}
+
+.service-number {
+    display: block;
+    color: #0d9488;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+}
+
+.home-service-card h3 {
+    color: #0f172a;
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+}
+
+.home-service-card p {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.85;
+    margin-bottom: 24px;
+}
+
+.service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    width: fit-content;
+    margin-top: auto;
+    padding: 10px 0;
+    color: #0d9488;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+}
+
+.service-link i {
+    transition: transform 0.3s;
+}
+
+.service-link:hover {
+    color: #0f766e;
+    border-bottom-color: #0d9488;
+}
+
+.service-link:hover i {
+    transform: translateX(5px);
+}
+
+.home-service-card.smart-card {
+    background: linear-gradient(145deg, #ffffff, #f0fdfa);
+    border: 1px solid #99f6e4;
+    border-top: 4px solid #0d9488;
+}
+
+.home-service-card.smart-card .service-icon {
+    background: linear-gradient(135deg, #ccfbf1, #99f6e4);
+}
+
+/* ========== WHY CHOOSE MEDICARE ========== */
+.home-why {
+    padding: 110px 7%;
+    background: white;
+}
+
+.home-why-container {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+}
+
+.home-why-image {
+    width: 100%;
+    height: 440px;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.15);
+    transition: transform 0.4s ease;
+}
+
+.home-why-image:hover {
+    transform: scale(1.02);
+}
+
+.home-why-text h2 {
+    color: #0f172a;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 3.5vw, 42px);
+    line-height: 1.25;
+    margin-bottom: 26px;
+    letter-spacing: -0.5px;
+}
+
+.home-why-text p {
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 20px;
+}
+
+.home-why-text .home-btn {
+    margin-top: 12px;
+}
+
+/* ========== CONTACT SECTION ========== */
+.home-contact {
+    margin: 0 5% 90px;
+    padding: 80px 40px;
+    border-radius: 24px;
+    background:
+        linear-gradient(135deg, rgba(15, 40, 65, 0.90), rgba(13, 148, 136, 0.80)),
+        url('https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=1600&q=80')
+        center / cover no-repeat;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(15, 40, 65, 0.20);
+}
+
+.home-contact::before {
+    content: '\f21e';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: -10px;
+    bottom: -50px;
+    font-size: 260px;
+    color: rgba(255, 255, 255, 0.04);
+    pointer-events: none;
+}
+
+.home-contact .home-label {
+    color: #5eead4;
+    border-color: rgba(94, 234, 212, 0.25);
+    background: rgba(94, 234, 212, 0.1);
+}
+
+.home-contact h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 44px);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.home-contact > p {
+    max-width: 600px;
+    margin: 0 auto 32px;
+    color: #cbd5e1;
+    font-size: 16px;
+    line-height: 1.9;
+    position: relative;
+    z-index: 1;
+}
+
+.home-contact .home-btn {
+    background: white;
+    color: #0f766e;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.home-contact .home-btn:hover {
+    background: #f0fdfa;
+    color: #115e59;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 1024px) {
+    .home-gallery {
+        grid-template-columns: 1fr 1fr;
+    }
+    .home-gallery img:first-child {
+        grid-column: span 2;
+        height: 320px;
+    }
+}
+
+@media (max-width: 900px) {
     .home-hero {
-        min-height: 540px;
-        display: flex;
-        align-items: center;
-        padding: 75px 8%;
-        color: white;
-        background:
-            linear-gradient(90deg,
-                rgba(7, 45, 83, 0.97) 0%,
-                rgba(7, 66, 108, 0.88) 43%,
-                rgba(7, 66, 108, 0.20) 100%),
-            url('https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=1800&q=85')
-            center / cover no-repeat;
-    }
-
-    .home-hero-content {
-        max-width: 680px;
-    }
-
-    .home-label {
-        display: inline-block;
-        color: #0787cf;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        margin-bottom: 18px;
-    }
-
-    .home-hero .home-label {
-        color: #9be4ff;
-    }
-
-    .home-hero h1 {
-        font-size: clamp(38px, 5vw, 58px);
-        line-height: 1.17;
-        letter-spacing: -1.2px;
-        font-weight: 750;
-        margin-bottom: 22px;
-    }
-
-    .home-hero h1 span {
-        color: #76d5ff;
-    }
-
-    .home-hero p {
-        max-width: 570px;
-        font-size: 16px;
-        line-height: 1.9;
-        color: #e0edf8;
-        margin-bottom: 32px;
-    }
-
-    .home-btn {
-        display: inline-block;
-        padding: 15px 28px;
-        border-radius: 7px;
-        background: #0787cf;
-        color: white;
-        font-size: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        transition: 0.3s ease;
-    }
-
-    .home-btn:hover {
-        background: #0568a7;
-        color: white;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Welcome Section */
-    .home-welcome {
-        max-width: 1000px;
-        margin: auto;
-        padding: 85px 30px;
-        text-align: center;
-    }
-
-    .home-section-title {
-        color: #10365f;
-        font-size: clamp(29px, 3.5vw, 38px);
-        line-height: 1.3;
-        font-weight: 750;
-        letter-spacing: -0.5px;
-        margin-bottom: 20px;
-    }
-
-    .home-welcome p {
-        max-width: 780px;
-        margin: auto;
-        color: #64748b;
-        font-size: 16px;
-        line-height: 1.95;
-    }
-
-    .title-line {
-        width: 48px;
-        height: 3px;
-        margin: 0 auto 22px;
-        background: #0787cf;
-        border-radius: 3px;
-    }
-
-    /* Services Section */
-    .home-services {
-        padding: 80px 8%;
-        background: #f2f8fd;
-    }
-
-    .home-section-heading {
-        max-width: 720px;
-        margin: 0 auto 45px;
-        text-align: center;
-    }
-
-    .home-section-heading p {
-        color: #64748b;
-        font-size: 15px;
-        line-height: 1.8;
-        margin-bottom: 0;
-    }
-
-    /* Professional 2 x 2 Grid */
-    .home-service-container {
-        max-width: 1100px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 30px;
-        align-items: stretch;
-    }
-
-    /* Service Cards */
-    .home-service-card {
-        padding: 38px 32px;
-        min-height: 270px;
-        background: #ffffff;
-        border: 1px solid #e1eaf2;
-        border-radius: 14px;
-
-        display: flex;
-        flex-direction: column;
-
-        box-shadow: 0 5px 20px rgba(16, 54, 95, 0.05);
-
-        transition: all 0.3s ease;
-    }
-
-    .home-service-card:hover {
-        transform: translateY(-6px);
-        border-color: #0787cf;
-        box-shadow: 0 14px 30px rgba(16, 54, 95, 0.12);
-    }
-
-    .service-number {
-        display: block;
-        color: #0787cf;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        margin-bottom: 25px;
-    }
-
-    .home-service-card h3 {
-        color: #10365f;
-        font-size: 21px;
-        line-height: 1.4;
-        margin-bottom: 15px;
-    }
-
-    .home-service-card p {
-        color: #64748b;
-        font-size: 14px;
-        line-height: 1.9;
-        margin-bottom: 0;
-    }
-
-    /* Service Links */
-    .service-link {
-        display: inline-block;
-        width: fit-content;
-        margin-top: auto;
-        padding-top: 22px;
-
-        color: #087fbd;
-        font-size: 14px;
-        font-weight: 700;
-        text-decoration: none;
-
-        transition: 0.3s ease;
-    }
-
-    .service-link:hover {
-        color: #064b7e;
-        text-decoration: underline;
-    }
-
-    /* Smart Recommendation Card */
-    .home-service-card.smart-card {
-        background: linear-gradient(145deg, #ffffff, #f0f9ff);
-        border: 1px solid #b9dff5;
-        border-top: 4px solid #0787cf;
-    }
-
-    .smart-card:hover {
-        border-color: #0787cf;
-        box-shadow: 0 14px 32px rgba(7, 135, 207, 0.14);
-    }
-
-    .smart-card .service-number {
-        color: #0787cf;
-    }
-
-    .smart-card h3 {
-        color: #10365f;
-    }
-
-    .smart-card .service-link {
-        color: #0787cf;
-    }
-
-    /* Why Medicare */
-    .home-why {
-        padding: 80px 8%;
-        background: white;
+        min-height: 90vh;
+        padding: 70px 6%;
+        background-position: center;
     }
 
     .home-why-container {
-        max-width: 1150px;
-        margin: auto;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 55px;
-        align-items: center;
+        gap: 40px;
     }
 
     .home-why-image {
-        width: 100%;
         height: 360px;
-        display: block;
-        object-fit: cover;
-        border-radius: 15px;
-        box-shadow: 0 12px 30px rgba(16, 54, 95, 0.10);
     }
 
-    .home-why-text h2 {
-        color: #10365f;
-        font-size: clamp(28px, 3vw, 36px);
-        line-height: 1.3;
-        margin-bottom: 20px;
+    .home-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-service-container,
+    .home-why-container {
+        grid-template-columns: 1fr;
     }
 
-    .home-why-text p {
-        color: #64748b;
+    .home-why-container {
+        gap: 35px;
+    }
+
+    .home-why-image {
+        height: 300px;
+    }
+
+    .home-service-card {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 650px) {
+    .home-hero {
+        min-height: 100vh;
+        padding: 50px 6%;
+        align-items: flex-start;
+        padding-top: 90px;
+    }
+
+    .home-hero h1 {
+        font-size: 42px;
+    }
+
+    .home-hero > .home-hero-content > p {
         font-size: 15px;
-        line-height: 1.9;
-        margin-bottom: 18px;
     }
 
-    .home-why-text .home-btn {
-        margin-top: 10px;
+    .hero-info {
+        gap: 14px;
+        margin-top: 40px;
     }
 
-    /* Contact Section */
+    .hero-info-item {
+        padding: 12px 18px;
+        min-width: 140px;
+        flex: 1;
+    }
+
+    .home-welcome {
+        padding: 70px 22px 50px;
+    }
+
+    .home-gallery {
+        grid-template-columns: 1fr;
+        padding: 0 22px;
+        margin-bottom: 60px;
+        gap: 14px;
+    }
+
+    .home-gallery img:first-child {
+        grid-column: span 1;
+        height: 260px;
+    }
+
+    .home-gallery img {
+        height: 240px;
+    }
+
+    .home-services,
+    .home-why {
+        padding: 70px 22px;
+    }
+
+    .home-service-card {
+        padding: 32px 26px;
+    }
+
+    .home-service-card h3 {
+        font-size: 20px;
+    }
+
     .home-contact {
-        margin: 0 6% 75px;
-        padding: 55px 45px;
-        border-radius: 15px;
-        background: linear-gradient(115deg, #084a82, #087fbd);
-        color: white;
-        text-align: center;
+        margin: 0 15px 55px;
+        padding: 50px 24px;
+        border-radius: 18px;
     }
 
-    .home-contact .home-label {
-        color: #bdeaff;
+    .home-contact::before {
+        font-size: 160px;
+        bottom: -30px;
     }
 
-    .home-contact h2 {
-        font-size: clamp(28px, 3.5vw, 36px);
-        line-height: 1.3;
-        margin-bottom: 16px;
+    .home-label {
+        font-size: 10px;
+        letter-spacing: 2.5px;
+        padding: 6px 14px;
     }
 
-    .home-contact p {
-        max-width: 650px;
-        margin: 0 auto 28px;
-        color: #e1f2ff;
-        font-size: 15px;
-        line-height: 1.9;
+    .home-btn {
+        padding: 14px 28px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 400px) {
+    .home-hero h1 {
+        font-size: 34px;
     }
 
-    .home-contact .home-btn {
-        background: white;
-        color: #084a82;
+    .hero-info-item {
+        min-width: 100%;
     }
-
-    .home-contact .home-btn:hover {
-        background: #dff4ff;
-        color: #084a82;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 900px) {
-
-        .home-service-container {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 22px;
-        }
-
-        .home-why-container {
-            gap: 30px;
-        }
-    }
-
-    @media (max-width: 650px) {
-
-        .home-hero {
-            min-height: 450px;
-            padding: 55px 7%;
-            background-position: center;
-        }
-
-        .home-hero h1 {
-            font-size: 36px;
-        }
-
-        .home-hero p {
-            font-size: 15px;
-        }
-
-        .home-welcome {
-            padding: 55px 22px;
-        }
-
-        .home-services,
-        .home-why {
-            padding: 55px 22px;
-        }
-
-        .home-service-container,
-        .home-why-container {
-            grid-template-columns: 1fr;
-        }
-
-        .home-service-card {
-            min-height: 240px;
-            padding: 28px 24px;
-        }
-
-        .home-why-image {
-            height: 280px;
-        }
-
-        .home-contact {
-            margin: 0 15px 45px;
-            padding: 38px 22px;
-        }
-    }
+}
 </style>
 
 <div class="home-page">
 
-    <!-- Hero Section -->
+    <!-- ========== HERO SECTION ========== -->
     <section class="home-hero">
         <div class="home-hero-content">
-
-            <span class="home-label">Welcome to Medicare</span>
+            <span class="home-label">
+                <i class="fas fa-hospital"></i>
+                Welcome to Medicare Hospital
+            </span>
 
             <h1>
                 Your Health,<br>
@@ -401,46 +718,72 @@
             </h1>
 
             <p>
-                Compassionate care meets modern healthcare.
-                We are committed to supporting you and your family
-                with quality medical services and a patient-focused
-                approach to well-being.
+                Experience healthcare the way it should be — compassionate,
+                modern, and centered around you. From expert specialists
+                to seamless appointment booking, we're here for every step
+                of your health journey.
             </p>
 
             <a href="{% url 'doctors' %}" class="home-btn">
-                Meet Our Doctors &rarr;
+                Meet Our Doctors <i class="fas fa-arrow-right"></i>
             </a>
 
+            <div class="hero-info">
+                <div class="hero-info-item">
+                    <i class="fas fa-heart-pulse"></i>
+                    <strong>Patient Focused</strong>
+                    <small>Care with compassion</small>
+                </div>
+                <div class="hero-info-item">
+                    <i class="fas fa-user-md"></i>
+                    <strong>Expert Doctors</strong>
+                    <small>Board-certified specialists</small>
+                </div>
+                <div class="hero-info-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <strong>Easy Booking</strong>
+                    <small>Appointments in minutes</small>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Welcome Section -->
+    <!-- ========== WELCOME SECTION ========== -->
     <section class="home-welcome">
-
-        <span class="home-label">Who We Are</span>
+        <span class="home-label" style="color:#0d9488; background: rgba(13,148,136,0.06); border-color: rgba(13,148,136,0.15);">Who We Are</span>
 
         <h2 class="home-section-title">
+            <i class="fas fa-hospital-user" style="color:#0d9488; margin-right:10px;"></i>
             Welcome to Medicare Hospital
         </h2>
 
         <div class="title-line"></div>
 
         <p>
-            We are committed to delivering reliable healthcare services
-            in a caring and comfortable environment. Our hospital
-            management system helps organize information about doctors,
-            departments, and hospital services, making it easier to
-            access essential information.
+            We are committed to delivering reliable healthcare information
+            in a caring and comfortable environment. Our hospital management
+            system helps organize doctor profiles, medical departments, and
+            appointment information — making quality healthcare services
+            easier to access for everyone.
         </p>
-
     </section>
 
-    <!-- Healthcare Services -->
+    <!-- ========== IMAGE GALLERY ========== -->
+    <div class="home-gallery">
+        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=85"
+             alt="Modern hospital reception and waiting area" loading="lazy">
+
+        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=85"
+             alt="Hospital medical team ready to help patients" loading="lazy">
+
+        <img src="https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&w=800&q=85"
+             alt="Modern hospital corridor and patient care area" loading="lazy">
+    </div>
+
+    <!-- ========== SERVICES SECTION ========== -->
     <section class="home-services">
-
         <div class="home-section-heading">
-
-            <span class="home-label">What We Offer</span>
+            <span class="home-label" style="color:#0d9488; background: rgba(13,148,136,0.06); border-color: rgba(13,148,136,0.15);">What We Offer</span>
 
             <h2 class="home-section-title">
                 Our Healthcare Services
@@ -449,161 +792,130 @@
             <div class="title-line"></div>
 
             <p>
-                Explore our medical departments and discover
-                the information you need for your healthcare journey.
+                Explore our medical departments and discover the healthcare
+                information and facilities available through our platform.
             </p>
-
         </div>
 
         <div class="home-service-container">
-
-            <!-- Doctors Card -->
             <div class="home-service-card">
-
+                <div class="service-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
                 <span class="service-number">01 / DOCTORS</span>
-
                 <h3>Expert Doctors</h3>
-
                 <p>
-                    Find information about our doctors, their
-                    specializations, and the medical expertise
-                    available through our hospital.
+                    Find information about our doctors, their specializations,
+                    and the medical expertise available at our hospital.
                 </p>
-
                 <a href="{% url 'doctors' %}" class="service-link">
-                    Meet Our Doctors &rarr;
+                    Meet Our Doctors <i class="fas fa-arrow-right"></i>
                 </a>
-
             </div>
 
-            <!-- Departments Card -->
             <div class="home-service-card">
-
+                <div class="service-icon">
+                    <i class="fas fa-building"></i>
+                </div>
                 <span class="service-number">02 / DEPARTMENTS</span>
-
                 <h3>Medical Departments</h3>
-
                 <p>
-                    Explore hospital departments and learn about
-                    the different areas of medical care and services
-                    available to patients.
+                    Explore our hospital departments and learn about different
+                    areas of medical care and available specializations.
                 </p>
-
                 <a href="{% url 'departments' %}" class="service-link">
-                    Explore Departments &rarr;
+                    Explore Departments <i class="fas fa-arrow-right"></i>
                 </a>
-
             </div>
 
-            <!-- Appointment Card -->
             <div class="home-service-card">
-
+                <div class="service-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
                 <span class="service-number">03 / APPOINTMENTS</span>
-
                 <h3>Appointment Support</h3>
-
                 <p>
-                    Take the next step in planning your visit
-                    by using our appointment booking page to
-                    submit your appointment details.
+                    Plan your hospital visit by accessing our appointment
+                    booking facility and submitting your appointment details.
                 </p>
-
                 <a href="{% url 'booking' %}" class="service-link">
-                    Book an Appointment &rarr;
+                    Book an Appointment <i class="fas fa-arrow-right"></i>
                 </a>
-
             </div>
 
-            <!-- Smart Doctor Recommendation Card -->
             <div class="home-service-card smart-card">
-
-                <span class="service-number">
-                    04 / SMART HEALTHCARE
-                </span>
-
+                <div class="service-icon">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <span class="service-number">04 / SMART HEALTHCARE</span>
                 <h3>Smart Doctor Recommendation</h3>
-
                 <p>
-                    Not sure which specialist to consult?
-                    Enter your symptoms and let our smart
-                    recommendation system help you find
-                    doctors based on your symptoms.
+                    Not sure which specialist to consult? Enter your symptoms
+                    and explore doctors recommended based on your symptoms.
                 </p>
-
-                <a href="{% url 'smart_recommendation' %}"
-                   class="service-link">
-                    Find Recommended Doctors &rarr;
+                <a href="{% url 'smart_recommendation' %}" class="service-link">
+                    Find Recommended Doctors <i class="fas fa-arrow-right"></i>
                 </a>
-
             </div>
-
         </div>
-
     </section>
 
-    <!-- Why Choose Medicare -->
+    <!-- ========== WHY CHOOSE MEDICARE ========== -->
     <section class="home-why">
-
         <div class="home-why-container">
-
             <div>
-
                 <img
                     class="home-why-image"
-                    src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=85"
-                    alt="Medical care in a healthcare environment"
+                    src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1200&q=88"
+                    alt="Exterior view of a modern hospital facility"
                     loading="lazy"
                 >
-
             </div>
 
             <div class="home-why-text">
-
-                <span class="home-label">Our Commitment</span>
+                <span class="home-label" style="color:#0d9488; background: rgba(13,148,136,0.06); border-color: rgba(13,148,136,0.15);">Our Commitment</span>
 
                 <h2>
                     Healthcare Built Around Your Needs
                 </h2>
 
                 <p>
-                    At Medicare Hospital, we believe that clear
-                    information and an organized healthcare
-                    environment can make a difference in the
-                    patient experience.
+                    At Medicare Hospital, we believe that clear information
+                    and an organized healthcare environment can improve
+                    the patient experience at every touchpoint.
                 </p>
 
                 <p>
-                    Our website provides access to doctor details,
-                    department information, and appointment
-                    facilities in one convenient place.
+                    Our platform provides access to doctor details, department
+                    information, and appointment facilities in one convenient
+                    place — so you can focus on what matters most: your health.
                 </p>
 
                 <a href="{% url 'about' %}" class="home-btn">
-                    Learn More About Us &rarr;
+                    Learn More About Us <i class="fas fa-arrow-right"></i>
                 </a>
-
             </div>
-
         </div>
-
     </section>
 
-    <!-- Contact Section -->
+    <!-- ========== CONTACT SECTION ========== -->
     <section class="home-contact">
-
-        <span class="home-label">We Are Here to Help</span>
+        <span class="home-label">
+            <i class="fas fa-headset" style="margin-right:6px;"></i>
+            We Are Here to Help
+        </span>
 
         <h2>Your Health Matters to Us</h2>
 
         <p>
-            Have questions about our hospital, doctors, or services?
-            Contact our team to find the information you need.
+            Have questions about our hospital, doctors, or healthcare services?
+            Contact our team to find the information you need — we're just a
+            message away.
         </p>
 
         <a href="{% url 'contact' %}" class="home-btn">
-            Contact Us &rarr;
+            Contact Us <i class="fas fa-arrow-right"></i>
         </a>
-
     </section>
 
 </div>

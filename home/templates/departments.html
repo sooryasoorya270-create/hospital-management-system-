@@ -1,128 +1,594 @@
-
 {% extends 'base.html' %}
 
-{% block title %}Departments{% endblock %}
+{% block title %}Our Departments | Medicare Hospital{% endblock %}
 
 {% block content %}
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
 <style>
-    .departments-container {
-        max-width: 1200px;
-        margin: 40px auto;
-        padding: 20px;
-        text-align: center;
+
+.departments-page {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.departments-page * {
+    box-sizing: border-box;
+}
+
+.departments-page h1,
+.departments-page h2,
+.departments-page h3,
+.departments-page p {
+    margin-top: 0;
+}
+
+/* ========== COMMON ========== */
+
+.department-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #0d9488;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding: 8px 18px;
+    background: rgba(13, 148, 136, 0.06);
+    border: 1px solid rgba(13, 148, 136, 0.15);
+    border-radius: 50px;
+}
+
+.department-divider {
+    width: 60px;
+    height: 4px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #0d9488, #5eead4);
+    margin: 0 auto 28px;
+}
+
+/* ========== HERO SECTION ========== */
+
+.department-hero {
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    padding: 80px 7%;
+    color: white;
+    position: relative;
+    background:
+        linear-gradient(
+            105deg,
+            rgba(15, 40, 65, 0.92) 0%,
+            rgba(15, 40, 65, 0.80) 42%,
+            rgba(15, 40, 65, 0.45) 72%,
+            rgba(15, 40, 65, 0.10) 100%
+        ),
+        url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=2000&q=90')
+        center / cover no-repeat;
+    background-color: #1a2e3f;
+    overflow: hidden;
+}
+
+.department-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, #f8fafc, transparent);
+    pointer-events: none;
+}
+
+.department-hero-content {
+    max-width: 720px;
+    position: relative;
+    z-index: 2;
+}
+
+.department-hero .department-label {
+    color: #5eead4;
+    background: rgba(94, 234, 212, 0.08);
+    border-color: rgba(94, 234, 212, 0.2);
+}
+
+.department-hero h1 {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: clamp(42px, 5.5vw, 66px);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 26px;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+}
+
+.department-hero h1 span {
+    color: #5eead4;
+}
+
+.department-hero > .department-hero-content > p {
+    max-width: 560px;
+    color: #e2e8f0;
+    font-size: 17px;
+    line-height: 1.9;
+    margin-bottom: 0;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ========== INTRODUCTION ========== */
+
+.department-intro-section {
+    padding: 100px 25px 60px;
+    text-align: center;
+    max-width: 850px;
+    margin: auto;
+}
+
+.department-intro-section h2 {
+    color: #0f172a;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.department-intro-section > p {
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 0;
+}
+
+/* ========== DEPARTMENT LIST ========== */
+
+.department-list-section {
+    padding: 40px 7% 100px;
+    background: linear-gradient(180deg, #f8fafc 0%, #f0fdfa 100%);
+}
+
+.department-list {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+/* ========== DEPARTMENT CARD ========== */
+
+.department-card {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border-radius: 16px;
+    padding: 40px 34px;
+    border: 1px solid #e2e8f0;
+    border-top: 4px solid #0d9488;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 280px;
+}
+
+.department-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0d9488, #5eead4);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.department-card:hover::before {
+    opacity: 1;
+}
+
+.department-card:hover {
+    transform: translateY(-8px);
+    border-color: #99f6e4;
+    box-shadow: 0 20px 50px rgba(13, 148, 136, 0.12);
+}
+
+.department-card::after {
+    content: "";
+    position: absolute;
+    right: -45px;
+    bottom: -55px;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: #f0fdfa;
+    transition: all 0.4s ease;
+}
+
+.department-card:hover::after {
+    background: #ccfbf1;
+    transform: scale(1.2);
+}
+
+.department-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+    color: #0d9488;
+    border-radius: 15px;
+    font-size: 26px;
+    margin-bottom: 26px;
+    transition: all 0.35s ease;
+    border: 1px solid #ccfbf1;
+    position: relative;
+    z-index: 1;
+}
+
+.department-card:hover .department-icon {
+    background: linear-gradient(135deg, #0d9488, #0f766e);
+    color: white;
+    transform: scale(1.08) rotate(-3deg);
+    border-color: #0d9488;
+    box-shadow: 0 8px 24px rgba(13, 148, 136, 0.3);
+}
+
+.department-number {
+    display: block;
+    color: #0d9488;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+}
+
+.department-card h2 {
+    color: #0f172a;
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: -0.3px;
+    position: relative;
+    z-index: 1;
+}
+
+.department-card p {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.85;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* ========== EMPTY STATE ========== */
+
+.department-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 70px 30px;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+.department-empty i {
+    font-size: 48px;
+    color: #0d9488;
+    margin-bottom: 22px;
+    background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+    width: 90px;
+    height: 90px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    border: 1px solid #ccfbf1;
+}
+
+.department-empty h3 {
+    color: #0f172a;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.department-empty p {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 0;
+}
+
+/* ========== BOTTOM CTA ========== */
+
+.department-cta {
+    max-width: 1150px;
+    margin: 0 auto 90px;
+    padding: 60px 50px;
+    border-radius: 24px;
+    color: white;
+    background:
+        linear-gradient(135deg, rgba(15, 40, 65, 0.92), rgba(13, 148, 136, 0.85)),
+        url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1400&q=85')
+        center / cover;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    box-shadow: 0 30px 80px rgba(15, 40, 65, 0.20);
+    position: relative;
+    overflow: hidden;
+}
+
+.department-cta::before {
+    content: '\f21e';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: -10px;
+    bottom: -40px;
+    font-size: 220px;
+    color: rgba(255, 255, 255, 0.04);
+    pointer-events: none;
+}
+
+.department-cta > div {
+    position: relative;
+    z-index: 1;
+}
+
+.department-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.5vw, 38px);
+    margin-bottom: 14px;
+}
+
+.department-cta p {
+    color: #cbd5e1;
+    font-size: 15px;
+    line-height: 1.8;
+    max-width: 580px;
+    margin-bottom: 0;
+}
+
+.department-cta a {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #0f766e;
+    background: white;
+    padding: 16px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    transition: all 0.35s ease;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.department-cta a:hover {
+    background: #f0fdfa;
+    color: #115e59;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.department-cta a i {
+    transition: transform 0.3s;
+}
+
+.department-cta a:hover i {
+    transform: translateX(5px);
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 1024px) {
+
+    .department-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .departments-container h1 {
-        color: #0d3557;
-        font-size: 36px;
-        margin-bottom: 12px;
+    .department-cta {
+        margin: 0 20px 70px;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .department-card {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .department-hero {
+        min-height: 420px;
+        padding: 70px 6%;
+        background-position: center;
     }
 
-    .department-intro {
-        color: #666;
-        font-size: 16px;
-        margin-bottom: 40px;
-        line-height: 1.6;
+    .department-hero h1 {
+        font-size: 38px;
+    }
+
+    .department-hero > .department-hero-content > p {
+        font-size: 15px;
+    }
+
+    .department-intro-section {
+        padding: 70px 22px 45px;
+    }
+
+    .department-list-section {
+        padding: 30px 20px 70px;
     }
 
     .department-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 25px;
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .department-card {
-        background: #ffffff;
-        padding: 30px 25px;
-        border-radius: 15px;
-        border-top: 5px solid #1684c7;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease,
-                    box-shadow 0.3s ease;
-    }
-
-    .department-card:hover {
-        transform: translateY(-7px);
-        box-shadow: 0 10px 25px rgba(13, 53, 87, 0.15);
-    }
-
-    .department-icon {
-        width: 65px;
-        height: 65px;
-        margin: 0 auto 20px;
-        background: #e8f4ff;
-        color: #0d5790;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 30px;
+        padding: 32px 26px;
     }
 
     .department-card h2 {
-        color: #0d3557;
-        font-size: 22px;
-        margin-bottom: 15px;
+        font-size: 21px;
     }
 
-    .department-card p {
-        color: #666;
-        font-size: 15px;
-        line-height: 1.8;
-        margin: 0;
+    .department-cta {
+        margin: 0 15px 60px;
+        padding: 40px 28px;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    @media (max-width: 600px) {
-        .departments-container {
-            margin: 20px auto;
-            padding: 15px;
-        }
-
-        .departments-container h1 {
-            font-size: 28px;
-        }
-
-        .department-list {
-            grid-template-columns: 1fr;
-        }
+    .department-cta::before {
+        font-size: 160px;
+        bottom: -30px;
     }
+
+    .department-label {
+        font-size: 10px;
+        letter-spacing: 2.5px;
+        padding: 6px 14px;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .department-hero h1 {
+        font-size: 32px;
+    }
+}
+
 </style>
 
-<div class="departments-container">
+<div class="departments-page">
 
-    <h1>Our Departments</h1>
+    <!-- ========== HERO SECTION ========== -->
+    <section class="department-hero">
+        <div class="department-hero-content">
+            <span class="department-label">
+                <i class="fas fa-hospital"></i>
+                Medicare Hospital
+            </span>
 
-    <p class="department-intro">
-        Explore our specialized medical departments,
-        committed to providing quality healthcare.
-    </p>
+            <h1>
+                Our Medical<br>
+                <span>Departments</span>
+            </h1>
 
-    <div class="department-list">
+            <p>
+                Explore our medical departments and discover
+                the different areas of healthcare available
+                through Medicare Hospital.
+            </p>
+        </div>
+    </section>
 
-        {% for d in department %}
+    <!-- ========== INTRODUCTION ========== -->
+    <section class="department-intro-section">
+        <span class="department-label">
+            Our Specializations
+        </span>
 
-        <div class="department-card">
+        <h2>
+            Explore Our Departments
+        </h2>
 
-            <div class="department-icon">
-                🏥
+        <div class="department-divider"></div>
+
+        <p>
+            Each department represents an important area of
+            healthcare. Explore our department information
+            to learn more about the medical services and
+            specializations available at our hospital.
+        </p>
+    </section>
+
+    <!-- ========== DEPARTMENT CARDS ========== -->
+    <section class="department-list-section">
+        <div class="department-list">
+
+            {% for d in department %}
+
+            <div class="department-card">
+                <div class="department-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+
+                <span class="department-number">
+                    Department {{ forloop.counter|stringformat:"02d" }}
+                </span>
+
+                <h2>
+                    {{ d.department_name }}
+                </h2>
+
+                <p>
+                    {{ d.dbt_dsc|default:"Explore this department and learn more about its healthcare specializations." }}
+                </p>
             </div>
 
-            <h2>{{ d.department_name }}</h2>
+            {% empty %}
 
-            <p>{{ d.dbt_dsc }}</p>
+            <div class="department-empty">
+                <i class="fas fa-hospital"></i>
+                <h3>No Departments Available</h3>
+                <p>
+                    Department information will be displayed here
+                    once it has been added.
+                </p>
+            </div>
+
+            {% endfor %}
 
         </div>
+    </section>
 
-        {% empty %}
+    <!-- ========== CONTACT CTA ========== -->
+    <section class="department-cta">
+        <div>
+            <h2>
+                Looking for the Right Specialist?
+            </h2>
+            <p>
+                Explore our doctors and their specializations
+                to find information about the healthcare
+                professionals available at Medicare Hospital.
+            </p>
+        </div>
 
-        <p>No departments available.</p>
-
-        {% endfor %}
-
-    </div>
+        <a href="{% url 'doctors' %}">
+            View Our Doctors
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </section>
 
 </div>
 
 {% endblock %}
-
