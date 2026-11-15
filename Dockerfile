@@ -1,3 +1,4 @@
+
 FROM python:3.14-slim
 
 # Prevent Python from creating .pyc files
@@ -18,6 +19,9 @@ RUN python -m pip install --upgrade pip && \
 
 # Copy the complete Django project
 COPY . .
+
+# Collect Django static files (Admin CSS and JavaScript)
+RUN python manage.py collectstatic --noinput
 
 # Django port
 EXPOSE 8000
